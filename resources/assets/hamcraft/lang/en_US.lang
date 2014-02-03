@@ -1,0 +1,17 @@
+tile.hamcraft.breeder.name=Breeder
+
+item.hamcraft.emancipator.name=Emancipator
+item.hamcraft.emancipatedanimal.pig.name=Emancipated Pig
+item.hamcraft.emancipatedanimal.sheep.name=Emancipated Sheep
+item.hamcraft.emancipatedanimal.invalid.name=Invalid Item
+
+hamcraft.animal.sheep=Sheep
+hamcraft.animal.pig=Pig
+hamcraft.animal.invalid=Invalid
+
+hamcraft.label.recipes=Click to see recipes
+hamcraft.label.charges=Charges: %s
+hamcraft.label.health=Health: %s / %s
+hamcraft.label.child=Child
+
+bdlib.label.empty=Empty
