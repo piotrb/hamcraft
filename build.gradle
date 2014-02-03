@@ -1,0 +1,137 @@
+buildscript {
+    configurations.all {
+        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+    }
+    repositories {
+        mavenCentral()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.0-SNAPSHOT'
+    }
+}
+
+apply plugin: "forge"
+apply plugin: "scala"
+
+ext.bdlibver = "1.1.0.21"
+ext.versuffix = "mc164"
+
+if (project.hasProperty('buildnum')) {
+    project.version = project.version + '.' + project.buildnum
+} else {
+    project.version = "0-SNAPSHOT"
+    ext.bdlibver = "0-SNAPSHOT"
+    repositories.mavenLocal()
+}
+
+sourceSets
+{
+    main
+    {
+        scala {
+            srcDir "src"
+        }
+        resources {
+            srcDir "resources"
+        }
+    }
+}
+
+dependencies {
+    compile project(path: ':deps', configuration: 'deps')
+}
+
+ideaModule {
+    dependsOn task(":deps:sourceJar")
+    dependsOn task(":deps:deobfJar")
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource
+}
+
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    exclude "**/*.pxm"
+}
+
+jar {
+    exclude "**/*.pxm"
+    appendix = project.versuffix
+}
+
+artifacts {
+    archives sourceJar
+    archives deobfJar
+}
+
+group= "com.tpl.hamcraft"
+archivesBaseName = "hamcraft"
+
+// define the properties file
+ext.configFile = file "build.properties"
+
+configFile.withReader
+{
+    // read config.  it shall from now on be referenced as simply config or as project.config
+    def prop = new Properties()
+    prop.load(it)
+    project.ext.config = new ConfigSlurper().parse prop
+}
+
+version = config.mod_version
+
+minecraft {
+    version = config.minecraft_version + "-" + config.forge_version // grab latest forge
+    replace("HAMCRAFT_VERSION", project.version)
+    replace("mcversion", project.minecraft.version)
+}
+
+import org.apache.tools.ant.filters.ReplaceTokens
+
+processResources {
+    inputs.property "tokens", minecraft.replacements
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+        filter(ReplaceTokens, tokens: minecraft.replacements)
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
+idea {
+    module {
+        iml {
+            withXml { xmlProvider ->
+                // Fix the IDEA module XML to use the jars produced by deps, because using them directly doesn't work properly
+                // This is somwhat hackish, but i couldn't find a better way...
+
+                // Find the right node
+                def module = xmlProvider.asNode()
+                def moduleDeps = module.component.find {it.@name == "NewModuleRootManager"}
+
+                // Nuke the module dependency
+                moduleDeps.remove(moduleDeps.find {it['@module-name'] == 'deps'})
+
+                // Setup the entry structure
+                def myNode = new Node(null, 'orderEntry', [type:'module-library', exported:''])
+                moduleDeps.children().add(0, myNode)
+                def libNode = myNode.appendNode 'library'
+                def classesNode = libNode.appendNode 'CLASSES'
+                def sourceNode = libNode.appendNode 'SOURCES'
+
+                // Add the jars, project.depJarPath and project.depSourceJarPath are set in the subproject
+                classesNode.appendNode 'root', [url: 'jar://' + project.depJarPath.getAbsolutePath().replace('\\','/')+'!/']
+                sourceNode.appendNode 'root', [url: 'jar://' + project.depSourceJarPath.getAbsolutePath().replace('\\','/')+'!/']
+            }
+        }
+    }
+}
+
+
