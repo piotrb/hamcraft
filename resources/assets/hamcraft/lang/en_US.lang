@@ -1,9 +1,12 @@
 tile.hamcraft.breeder.name=Breeder
+tile.hamcraft.babyfood.name=Baby Food
 
 item.hamcraft.emancipator.name=Emancipator
 item.hamcraft.emancipatedanimal.pig.name=Emancipated Pig
 item.hamcraft.emancipatedanimal.sheep.name=Emancipated Sheep
 item.hamcraft.emancipatedanimal.invalid.name=Invalid Item
+
+item.hamcraft.babyfood.bucket.name=Bucket of Baby Food
 
 hamcraft.animal.sheep=Sheep
 hamcraft.animal.pig=Pig

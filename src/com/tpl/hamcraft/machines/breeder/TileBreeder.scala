@@ -64,6 +64,8 @@ class TileBreeder extends TileItemProcessor with TilePowered with ExposeTank {
       val parent1 = getStackInSlot(0)
       val parent2 = getStackInSlot(1)
       output := EmancipatedAnimal.makeChild(parent1, parent2)
+      if(parent1.stackSize <= 0) setInventorySlotContents(0, null)
+      if(parent2.stackSize <= 0) setInventorySlotContents(1, null)
       return true
     }
     false
@@ -77,8 +79,8 @@ class TileBreeder extends TileItemProcessor with TilePowered with ExposeTank {
         setInventorySlotContents(0, null)
         setInventorySlotContents(1, null)
 
-        if(parent1.stackSize > 0) setInventorySlotContents(2, parent1)
-        if(parent2.stackSize > 0) setInventorySlotContents(3, parent2)
+        if(parent1 != null && parent1.stackSize > 0) setInventorySlotContents(2, parent1)
+        if(parent2 != null && parent2.stackSize > 0) setInventorySlotContents(3, parent2)
 
         tank.drain(1000, true)
         return true
