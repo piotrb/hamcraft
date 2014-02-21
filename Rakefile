@@ -103,6 +103,7 @@ task :copy_dep_mods do
   download_mod "http://www.chickenbones.craftsaddle.org/Files/New_Versions/1.6.4/NotEnoughItems 1.6.1.8.jar"
   download_mod "https://dl.dropboxusercontent.com/u/164771/MC Modding/Waila/Waila_1.4.4b.zip"
   download_mod "http://jenkins.bdew.net/job/bdlib/lastSuccessfulBuild/artifact/build/libs/bdlib-mc164-1.2.0.23.jar"
+  download_mod "http://www.mod-buildcraft.com/releases/BuildCraft/4.2.2/buildcraft-A-1.6.4-4.2.2.jar"
 end
 
 task :copy_mod do

@@ -12,8 +12,9 @@ import net.bdew.lib.tile.ExposeTank
 import net.minecraftforge.fluids.{FluidStack, Fluid, IFluidTank, FluidRegistry}
 import com.tpl.hamcraft.items.EmancipatedAnimal
 import net.bdew.lib.items.ItemUtils
+import net.bdew.lib.rotate.RotateableTile
 
-class TileBreeder extends TileItemProcessor with TilePowered with ExposeTank {
+class TileBreeder extends TileItemProcessor with TilePowered with ExposeTank with RotateableTile {
   lazy val cfg = Machines.breeder
 
   val slotsAnimals = 0 to 1

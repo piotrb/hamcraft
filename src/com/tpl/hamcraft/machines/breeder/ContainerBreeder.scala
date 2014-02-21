@@ -1,10 +1,10 @@
 package com.tpl.hamcraft.machines.breeder
 
 import net.minecraft.entity.player.EntityPlayer
-import net.bdew.lib.gui.{SlotValidating, BaseContainer}
-import net.bdew.lib.data.base.ContainerDataSlots
+import net.bdew.lib.gui.SlotValidating
+import com.tpl.hamcraft.machines.ContainerBase
 
-class ContainerBreeder(val te: TileBreeder, player: EntityPlayer) extends BaseContainer(te) with ContainerDataSlots {
+class ContainerBreeder(val te: TileBreeder, player: EntityPlayer) extends ContainerBase[TileBreeder](te, player) {
   lazy val dataSource = te
 
   // input
@@ -17,8 +17,4 @@ class ContainerBreeder(val te: TileBreeder, player: EntityPlayer) extends BaseCo
   addSlotToContainer(new SlotValidating(te, 4, 151, 54))
 
   bindPlayerInventory(player.inventory, 8, 84, 142)
-
-  def canInteractWith(entityplayer: EntityPlayer): Boolean = {
-    return te.isUseableByPlayer(entityplayer)
-  }
 }

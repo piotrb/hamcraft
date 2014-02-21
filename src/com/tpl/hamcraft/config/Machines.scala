@@ -3,9 +3,11 @@ package com.tpl.hamcraft.config
 import net.bdew.lib.config.MachineManager
 import com.tpl.hamcraft.HamCraftMod
 import com.tpl.hamcraft.machines.breeder.MachineBreeder
+import com.tpl.hamcraft.machines.feedmixer.MachineFeedMixer
 
 object Machines extends MachineManager(Config.IDs, Tuning.getSection("Machines"), Config.guiHandler) {
   val breeder = registerMachine(new MachineBreeder)
+  val feedmixer = registerMachine(new MachineFeedMixer)
 //  val mutagenProducer = registerMachine(new MachineMutagenProducer)
 //  val mutatron = registerMachine(new MachineMutatron)
 //  val apiary = registerMachine(new MachineApiary)

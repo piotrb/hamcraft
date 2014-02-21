@@ -2,14 +2,18 @@ tile.hamcraft.breeder.name=Breeder
 tile.hamcraft.babyfood.name=Baby Food
 
 item.hamcraft.emancipator.name=Emancipator
-item.hamcraft.emancipatedanimal.pig.name=Emancipated Pig
-item.hamcraft.emancipatedanimal.sheep.name=Emancipated Sheep
+item.hamcraft.emancipatedanimal.pig.name=Pig Capsule
+item.hamcraft.emancipatedanimal.sheep.name=Sheep Capsule
+item.hamcraft.emancipatedanimal.cow.name=Cow Capsule
+item.hamcraft.emancipatedanimal.squid.name=Squid Capsule
 item.hamcraft.emancipatedanimal.invalid.name=Invalid Item
 
 item.hamcraft.babyfood.bucket.name=Bucket of Baby Food
 
 hamcraft.animal.sheep=Sheep
 hamcraft.animal.pig=Pig
+hamcraft.animal.cow=Cow
+hamcraft.animal.squid=Squid
 hamcraft.animal.invalid=Invalid
 
 hamcraft.label.recipes=Click to see recipes

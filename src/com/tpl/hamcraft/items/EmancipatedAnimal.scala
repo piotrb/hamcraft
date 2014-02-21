@@ -4,7 +4,7 @@ import net.minecraft.item.{Item, ItemStack}
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.world.World
 import net.minecraft.util.Facing
-import net.minecraft.entity.passive.{EntitySheep, EntityAnimal, EntityPig}
+import net.minecraft.entity.passive._
 import java.util
 import java.util.List
 import net.bdew.lib.Misc
@@ -13,7 +13,7 @@ import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.client.renderer.texture.IconRegister
 import com.tpl.hamcraft.HamCraftMod
 import codechicken.lib.data.NBTDataWrapper
-import net.minecraft.entity.{passive, EntityLivingBase, Entity}
+import net.minecraft.entity.{EntityCreature, passive, EntityLivingBase, Entity}
 import net.minecraft.nbt.NBTTagCompound
 import cpw.mods.fml.common.registry.EntityRegistry
 import com.tpl.hamcraft.config.Items
@@ -26,6 +26,8 @@ import scala.collection.mutable
 
 class EmancipatedAnimal(id: Int) extends Item(id) {
 
+  type EntityClass = Class[_ <: EntityLivingBase]
+
   @SideOnly(Side.CLIENT)
   var subTypeIcons: mutable.Map[String, Icon] = mutable.Map.empty[String, Icon]
 
@@ -35,10 +37,14 @@ class EmancipatedAnimal(id: Int) extends Item(id) {
 
   setHasSubtypes(true)
 
-  def entityToSpawn(stack: ItemStack, world: World): EntityAnimal = getAnimalType(stack) match {
-    case "sheep" => new passive.EntitySheep(world)
-    case "pig" => new passive.EntityPig((world))
-    case _ => null
+  def entityToSpawn(stack: ItemStack, world: World): EntityCreature = {
+    val typeString = getAnimalType(stack)
+    if (EmancipatedAnimal.nameEntityMap.contains(typeString)) {
+      val entityClass: EntityClass = EmancipatedAnimal.nameEntityMap(typeString)
+      entityClass.getConstructor(classOf[World]).newInstance(world).asInstanceOf[EntityCreature]
+    } else {
+      null
+    }
   }
 
   def onCreateFromEntity(stack: ItemStack, entity: EntityLivingBase, player: EntityPlayer) {
@@ -104,9 +110,7 @@ class EmancipatedAnimal(id: Int) extends Item(id) {
   }
 
   @SideOnly(Side.CLIENT)
-  override def getIconIndex(stack: ItemStack): Icon = {
-    subTypeIcons(getAnimalType(stack))
-  }
+  override def getIconIndex(stack: ItemStack): Icon = subTypeIcons(getAnimalType(stack))
 
 
   override def getUnlocalizedName(stack: ItemStack): String = {
@@ -115,27 +119,49 @@ class EmancipatedAnimal(id: Int) extends Item(id) {
 
   override def getSubItems(id: Int, tab: CreativeTabs, list: util.List[_]) = {
     val l = list.asInstanceOf[java.util.List[ItemStack]]
-    var pig = new ItemStack(id, 1, 0)
-    onCreateSubtype(pig, "pig", false)
-    var sheep = new ItemStack(id, 1, 0)
-    onCreateSubtype(sheep, "sheep", false)
-    l.add(pig)
-    l.add(sheep)
+    EmancipatedAnimal.validSubtypes.foreach { name =>
+      var stack = new ItemStack(id, 1, 0)
+      onCreateSubtype(stack, name, false)
+      l.add(stack)
+    }
   }
 
   @SideOnly(Side.CLIENT)
   override def registerIcons(reg: IconRegister) {
-    subTypeIcons("pig") = reg.registerIcon(HamCraftMod.modId + ":emancipatedanimal/pig")
-    subTypeIcons("sheep") = reg.registerIcon(HamCraftMod.modId + ":emancipatedanimal/sheep")
-    subTypeIcons("invalid") = reg.registerIcon(HamCraftMod.modId + ":emancipatedanimal/invalid")
+    EmancipatedAnimal.allSubtypes.foreach { name =>
+      subTypeIcons(name) = reg.registerIcon(HamCraftMod.modId + ":emancipatedanimal/" + name)
+    }
   }
 }
 
 object EmancipatedAnimal {
-  def nameForEntity(entity: EntityLivingBase) = entity match {
-    case _:EntityPig => "pig"
-    case _:EntitySheep => "sheep"
-    case _ => "invalid"
+
+  type EntityClass = Class[_ <: EntityLivingBase]
+
+  private val validSubtypes = mutable.Set[String]()
+  private val nameEntityMap = mutable.Map[String, EntityClass]()
+  private val entityNameMap = mutable.Map[EntityClass, String]()
+
+  addEntity("pig", classOf[EntityPig])
+  addEntity("sheep", classOf[EntitySheep])
+  addEntity("cow", classOf[EntityCow])
+  addEntity("squid", classOf[EntitySquid])
+
+  def allSubtypes: Set[String] = validSubtypes.union(mutable.Set("invalid")).toSet
+
+  def addEntity(name: String, entityClass: EntityClass) {
+    validSubtypes.add(name)
+    nameEntityMap(name) = entityClass
+    entityNameMap(entityClass) = name
+  }
+
+  def nameForEntity(entity: EntityLivingBase) = {
+    val entityClass = entity.getClass
+    if (entityNameMap.contains(entityClass)) {
+      entityNameMap(entityClass)
+    } else {
+      "invalid"
+    }
   }
 
   def canUseOnEntity(player: EntityPlayer, entity: EntityLivingBase): Boolean = {
