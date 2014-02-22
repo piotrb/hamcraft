@@ -1,6 +1,8 @@
 tile.hamcraft.breeder.name=Breeder
 tile.hamcraft.babyfood.name=Baby Food
 
+fluid.hamcraft.babyfood=Baby Food
+
 item.hamcraft.emancipator.name=Emancipator
 item.hamcraft.emancipatedanimal.pig.name=Pig Capsule
 item.hamcraft.emancipatedanimal.sheep.name=Sheep Capsule
