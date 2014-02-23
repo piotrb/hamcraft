@@ -137,10 +137,11 @@ object EmancipatedAnimal {
 
   private val entityTypes = mutable.Set[AnimalInfo]()
 
-  addEntity("pig",   classOf[EntityPig])
-  addEntity("sheep", classOf[EntitySheep])
-  addEntity("cow",   classOf[EntityCow])
-  addEntity("squid", classOf[EntitySquid])
+  addEntity("chicken", classOf[EntityChicken])
+  addEntity("pig",     classOf[EntityPig])
+  addEntity("sheep",   classOf[EntitySheep])
+  addEntity("cow",     classOf[EntityCow])
+  addEntity("squid",   classOf[EntitySquid])
 
   def infoForSubtype(subtype: String): Option[AnimalInfo] = {
     entityTypes.find(info => info.name == subtype)

@@ -10,6 +10,7 @@ item.hamcraft.emancipatedanimal.pig.name=Pig Capsule
 item.hamcraft.emancipatedanimal.sheep.name=Sheep Capsule
 item.hamcraft.emancipatedanimal.cow.name=Cow Capsule
 item.hamcraft.emancipatedanimal.squid.name=Squid Capsule
+item.hamcraft.emancipatedanimal.chicken.name=Chicken Capsule
 item.hamcraft.emancipatedanimal.invalid.name=Invalid Item
 
 item.hamcraft.babyfood.bucket.name=Bucket of Baby Formula
@@ -18,6 +19,7 @@ hamcraft.animal.sheep=Sheep
 hamcraft.animal.pig=Pig
 hamcraft.animal.cow=Cow
 hamcraft.animal.squid=Squid
+hamcraft.animal.chicken=Chicken
 hamcraft.animal.invalid=Invalid
 
 hamcraft.label.recipes=Click to see recipes
