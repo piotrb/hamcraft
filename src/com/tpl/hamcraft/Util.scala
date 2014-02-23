@@ -19,6 +19,7 @@ object Util {
 
     OreDictionary.registerOre("meatRaw", new ItemStack(Item.beefRaw))
     OreDictionary.registerOre("meatRaw", new ItemStack(Item.porkRaw))
+    OreDictionary.registerOre("meatRaw", new ItemStack(Item.fishRaw))
 
     OreDictionary.registerOre("foodRootVegetables", new ItemStack(Item.potato))
     OreDictionary.registerOre("foodRootVegetables", new ItemStack(Item.carrot))
