@@ -13,17 +13,19 @@ import net.minecraftforge.fluids.{FluidStack, Fluid, IFluidTank, FluidRegistry}
 import com.tpl.hamcraft.items.EmancipatedAnimal
 import net.bdew.lib.items.ItemUtils
 import net.bdew.lib.rotate.RotateableTile
+import com.tpl.hamcraft.machines.TileIngredientSearch
 
-class TileBreeder extends TileItemProcessor with TilePowered with ExposeTank with RotateableTile {
+class TileBreeder extends TileItemProcessor with TilePowered with ExposeTank with RotateableTile with TileIngredientSearch {
   lazy val cfg = Machines.breeder
 
   val slotsAnimals = 0 to 1
   val transferSlots = 2 to 3
   val outputSlots = 4 to 4
+  val feedSlots = 5 to 14
 
   val tank = DataSlotTankRestricted("tank", this, cfg.tankSize, FluidRegistry.WATER.getID)
 
-  def getSizeInventory = 5
+  def getSizeInventory = 15
 
   allowSided = true
 
@@ -38,13 +40,17 @@ class TileBreeder extends TileItemProcessor with TilePowered with ExposeTank wit
   }
 
   override def isItemValidForSlot(slot: Int, itemstack: ItemStack): Boolean = {
-    if(getStackInSlot(slot) != null) return false
-    if (itemstack == null || itemstack.getItem == null) return false
-    if(itemstack.stackSize > 1) return false
-
     slot match {
-      case 0 => itemIsEmancipatedAnimal(itemstack)
-      case 1 => itemIsEmancipatedAnimal(itemstack)
+      case x if slotsAnimals.contains(x) => {
+        if (itemstack != null && itemstack.getItem != null) {
+          getStackInSlot(slot) == null &&
+            itemstack.stackSize == 1 &&
+            itemIsEmancipatedAnimal(itemstack)
+        } else false
+      }
+      case x if transferSlots.contains(x) => false
+      case x if outputSlots.contains(x) => false
+      case x if feedSlots.contains(x) => true
       case _ => false
     }
   }
@@ -54,7 +60,11 @@ class TileBreeder extends TileItemProcessor with TilePowered with ExposeTank wit
     val parent2 = getStackInSlot(1)
     if(parent1 != null && parent2 != null && tank.getFluidAmount >= 1000) {
       if(Items.emancipatedAnimal.getAnimalType(parent1) == Items.emancipatedAnimal.getAnimalType(parent2)) {
-        return true
+
+        val info = EmancipatedAnimal.infoForStack(parent1).get
+        val slot = findIngredientSlot(feedSlots, info.breedingFood, 2)
+
+        return slot.isDefined
       }
     }
     false
@@ -64,7 +74,12 @@ class TileBreeder extends TileItemProcessor with TilePowered with ExposeTank wit
     if(isReadyToStart) {
       val parent1 = getStackInSlot(0)
       val parent2 = getStackInSlot(1)
+
+      val info = EmancipatedAnimal.infoForStack(parent1).get
+      val slot = findIngredientSlot(feedSlots, info.breedingFood, 2).get
+
       output := EmancipatedAnimal.makeChild(parent1, parent2)
+      decrStackSize(slot, 2)
       if(parent1.stackSize <= 0) setInventorySlotContents(0, null)
       if(parent2.stackSize <= 0) setInventorySlotContents(1, null)
       return true

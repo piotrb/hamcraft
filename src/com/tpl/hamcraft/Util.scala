@@ -11,9 +11,17 @@ object Util {
     OreDictionary.registerOre("seedAny", new ItemStack(Item.seeds))
     OreDictionary.registerOre("seedAny", new ItemStack(Item.melonSeeds))
     OreDictionary.registerOre("seedAny", new ItemStack(Item.pumpkinSeeds))
+
     OreDictionary.registerOre("mushroomAny", new ItemStack(Block.mushroomRed))
     OreDictionary.registerOre("mushroomAny", new ItemStack(Block.mushroomBrown))
+
     OreDictionary.registerOre("wheat", new ItemStack(Item.wheat))
+
+    OreDictionary.registerOre("meatRaw", new ItemStack(Item.beefRaw))
+    OreDictionary.registerOre("meatRaw", new ItemStack(Item.porkRaw))
+
+    OreDictionary.registerOre("foodRootVegetables", new ItemStack(Item.potato))
+    OreDictionary.registerOre("foodRootVegetables", new ItemStack(Item.carrot))
   }
 
   def dumpOreDictionary {

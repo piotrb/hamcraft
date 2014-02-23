@@ -15,9 +15,9 @@ import net.bdew.lib.items.ItemUtils
 import cpw.mods.fml.common.FMLLog
 import net.bdew.lib.data.DataSlotTankRestricted
 import net.minecraftforge.oredict.OreDictionary
-import scala.collection.JavaConversions._
+import com.tpl.hamcraft.machines.TileIngredientSearch
 
-class TileFeedMixer extends TileBaseProcessor with TilePowered with ExposeTank with RotateableTile
+class TileFeedMixer extends TileBaseProcessor with TilePowered with ExposeTank with RotateableTile with TileIngredientSearch
 {
   lazy val cfg = Machines.feedmixer
 
@@ -104,20 +104,10 @@ class TileFeedMixer extends TileBaseProcessor with TilePowered with ExposeTank w
     super.tickServer()
   }
 
-  def findIngredientSlot(name: String, amount: Int): Option[Int] = {
-    val ores = OreDictionary.getOres(name)//.toArray
-    ingredientSlots.find(slot => {
-      val stack = getStackInSlot(slot)
-      stack != null && ores.exists(ore => {
-        ore.getItem == stack.getItem && stack.stackSize >= amount
-      })
-    })
-  }
-
   def consumeIngredients: Boolean = {
-    val wheatSlot = findIngredientSlot("wheat", 1)
-    val seedSlot = findIngredientSlot("seedAny", 1)
-    val mushroomSlot = findIngredientSlot("mushroomAny", 1)
+    val wheatSlot = findIngredientSlot(ingredientSlots, "wheat", 1)
+    val seedSlot = findIngredientSlot(ingredientSlots,"seedAny", 1)
+    val mushroomSlot = findIngredientSlot(ingredientSlots,"mushroomAny", 1)
     if(milkTank.getFluidAmount >= milkPerRun && wheatSlot.isDefined && seedSlot.isDefined && mushroomSlot.isDefined) {
       milkTank.drain(milkPerRun, true)
       decrStackSize(wheatSlot.get, 1)

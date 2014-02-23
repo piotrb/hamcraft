@@ -8,13 +8,19 @@ class ContainerBreeder(val te: TileBreeder, player: EntityPlayer) extends Contai
   lazy val dataSource = te
 
   // input
-  addSlotToContainer(new SlotValidating(te, 0, 56, 19))
-  addSlotToContainer(new SlotValidating(te, 1, 74, 19))
+  addSlotSet(startingSlot = 0, rows = 2, cols = 1, startX = 46, startY = 19)
 
   // output
-  addSlotToContainer(new SlotValidating(te, 2, 133, 19))
-  addSlotToContainer(new SlotValidating(te, 3, 151, 19))
-  addSlotToContainer(new SlotValidating(te, 4, 151, 54))
+  addSlotSet(startingSlot = 2, rows = 2, cols = 1, startX = 152, startY = 19)
 
-  bindPlayerInventory(player.inventory, 8, 84, 142)
+  // child
+  addSlotToContainer(new SlotValidating(te, 4, 98, 61))
+
+  // feed
+  addSlotSet(startingSlot = 5, rows = 1, cols = 9, startX = 8, startY = 81)
+
+
+  bindPlayerInventory(player.inventory, 8, 102, 160)
+
+
 }

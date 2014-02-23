@@ -23,6 +23,7 @@ import cpw.mods.fml.relauncher.Side
 import cpw.mods.fml.relauncher.SideOnly
 import net.minecraft.util.Icon
 import scala.collection.mutable
+import com.tpl.hamcraft.items.EmancipatedAnimal.AnimalBase
 
 class EmancipatedAnimal(id: Int) extends Item(id) {
 
@@ -37,18 +38,28 @@ class EmancipatedAnimal(id: Int) extends Item(id) {
 
   setHasSubtypes(true)
 
+  implicit def getAnimalType(stack: ItemStack) = EmancipatedAnimal.getAnimalType(stack)
+  implicit def infoForSubtype(name: String) = EmancipatedAnimal.infoForSubtype(name)
+  implicit def infoForEntity(entity: EntityLivingBase) = EmancipatedAnimal.infoForEntity(entity)
+  implicit def entityTypes = EmancipatedAnimal.entityTypes
+
   def entityToSpawn(stack: ItemStack, world: World): EntityCreature = {
     val typeString = getAnimalType(stack)
-    if (EmancipatedAnimal.nameEntityMap.contains(typeString)) {
-      val entityClass: EntityClass = EmancipatedAnimal.nameEntityMap(typeString)
-      entityClass.getConstructor(classOf[World]).newInstance(world).asInstanceOf[EntityCreature]
+    val info = infoForSubtype(typeString)
+    if (info.isDefined) {
+      info.get.entityClass.getConstructor(classOf[World]).newInstance(world).asInstanceOf[EntityCreature]
     } else {
       null
     }
   }
 
   def onCreateFromEntity(stack: ItemStack, entity: EntityLivingBase, player: EntityPlayer) {
-    onCreateSubtype(stack, EmancipatedAnimal.nameForEntity(entity), entity.isChild)
+    val info = infoForEntity(entity)
+    val subtype = info match {
+      case Some(_) => info.get.name
+      case _ => "invalid"
+    }
+    onCreateSubtype(stack, subtype, entity.isChild)
   }
 
   def onCreateSubtype(stack: ItemStack, name: String, child: Boolean = false) {
@@ -75,14 +86,6 @@ class EmancipatedAnimal(id: Int) extends Item(id) {
       }
     }
     false
-  }
-
-  def getAnimalType(stack: ItemStack): String = {
-    if(stack.getTagCompound != null) {
-      val name = stack.getTagCompound.getString("entityName")
-      if(name != "") return name
-    }
-    return "invalid"
   }
 
   def isChild(stack: ItemStack): Boolean = {
@@ -119,55 +122,83 @@ class EmancipatedAnimal(id: Int) extends Item(id) {
 
   override def getSubItems(id: Int, tab: CreativeTabs, list: util.List[_]) = {
     val l = list.asInstanceOf[java.util.List[ItemStack]]
-    EmancipatedAnimal.validSubtypes.foreach { name =>
+    entityTypes.foreach( info => {
       var stack = new ItemStack(id, 1, 0)
-      onCreateSubtype(stack, name, false)
+      onCreateSubtype(stack, info.name, false)
       l.add(stack)
-    }
+    })
   }
 
   @SideOnly(Side.CLIENT)
   override def registerIcons(reg: IconRegister) {
-    EmancipatedAnimal.allSubtypes.foreach { name =>
-      subTypeIcons(name) = reg.registerIcon(HamCraftMod.modId + ":emancipatedanimal/" + name)
+    entityTypes.foreach { info =>
+      subTypeIcons(info.name) = reg.registerIcon(HamCraftMod.modId + ":emancipatedanimal/" + info.name)
     }
+    subTypeIcons("invalid") = reg.registerIcon(HamCraftMod.modId + ":emancipatedanimal/" + "invalid")
   }
 }
 
 object EmancipatedAnimal {
 
-  type EntityClass = Class[_ <: EntityLivingBase]
-
-  private val validSubtypes = mutable.Set[String]()
-  private val nameEntityMap = mutable.Map[String, EntityClass]()
-  private val entityNameMap = mutable.Map[EntityClass, String]()
-
-  addEntity("pig", classOf[EntityPig])
-  addEntity("sheep", classOf[EntitySheep])
-  addEntity("cow", classOf[EntityCow])
-  addEntity("squid", classOf[EntitySquid])
-
-  def allSubtypes: Set[String] = validSubtypes.union(mutable.Set("invalid")).toSet
-
-  def addEntity(name: String, entityClass: EntityClass) {
-    validSubtypes.add(name)
-    nameEntityMap(name) = entityClass
-    entityNameMap(entityClass) = name
+  trait AnimalBase {
+    val name: String
+    val entityClass: Class[_ <: EntityLivingBase]
+    val breedingFood: String
   }
 
-  def nameForEntity(entity: EntityLivingBase) = {
-    val entityClass = entity.getClass
-    if (entityNameMap.contains(entityClass)) {
-      entityNameMap(entityClass)
-    } else {
-      "invalid"
-    }
+  object Pig extends AnimalBase {
+    val name = "pig"
+    val entityClass = classOf[EntityPig]
+    val breedingFood = "foodRootVegetables"
+  }
+
+  object Sheep extends AnimalBase {
+    val name = "sheep"
+    val entityClass = classOf[EntitySheep]
+    val breedingFood = "wheat"
+  }
+
+  object Cow extends AnimalBase {
+    val name = "cow"
+    val entityClass = classOf[EntityCow]
+    val breedingFood = "wheat"
+  }
+
+  object Squid extends AnimalBase {
+    val name = "squid"
+    val entityClass = classOf[EntitySquid]
+    val breedingFood = "meatRaw"
+  }
+
+  type EntityClass = Class[_ <: EntityLivingBase]
+
+  private val entityTypes = mutable.Set[AnimalBase]()
+
+  addEntity(Pig)
+  addEntity(Sheep)
+  addEntity(Cow)
+  addEntity(Squid)
+
+  def infoForSubtype(subtype: String): Option[AnimalBase] = {
+    entityTypes.find(info => info.name == subtype)
+  }
+
+  def infoForEntity(entity: EntityLivingBase): Option[AnimalBase] = {
+    entityTypes.find(info => info.entityClass == entity.getClass)
+  }
+
+  def infoForStack(stack: ItemStack) = {
+    infoForSubtype(getAnimalType(stack))
+  }
+
+  def addEntity(info: AnimalBase) {
+    entityTypes.add(info)
   }
 
   def canUseOnEntity(player: EntityPlayer, entity: EntityLivingBase): Boolean = {
     if(entity.isChild)
       return false
-    nameForEntity(entity) != "invalid"
+    infoForEntity(entity).isDefined
   }
 
   def createForEntity(player: EntityPlayer, entity: EntityLivingBase): ItemStack = {
@@ -178,7 +209,7 @@ object EmancipatedAnimal {
 
   def damageStack(stack: ItemStack, amount: Int) {
     stack.setItemDamage(stack.getItemDamage + amount)
-    if(stack.getItemDamage > stack.getMaxDamage) {
+    if(stack.getItemDamage >= stack.getMaxDamage) {
       stack.stackSize -= 1
     }
   }
@@ -187,8 +218,22 @@ object EmancipatedAnimal {
     damageStack(parent1, 1)
     damageStack(parent2, 1)
     val stack = new ItemStack(Items.emancipatedAnimal)
-    Items.emancipatedAnimal.onCreateSubtype(stack, Items.emancipatedAnimal.getAnimalType(parent1), true)
+    Items.emancipatedAnimal.onCreateSubtype(stack, getAnimalType(parent1), true)
     stack.setItemDamage(stack.getMaxDamage)
     stack
+  }
+
+  def breedingFood(itemStack: ItemStack): String = {
+    val info = EmancipatedAnimal.infoForSubtype(getAnimalType(itemStack))
+    if(info.isEmpty) throw new Exception("no breeding food defined")
+    info.get.breedingFood
+  }
+
+  def getAnimalType(stack: ItemStack): String = {
+    if(stack.getTagCompound != null) {
+      val name = stack.getTagCompound.getString("entityName")
+      if(name != "") return name
+    }
+    return "invalid"
   }
 }
