@@ -6,16 +6,11 @@ import net.minecraft.world.World
 import net.minecraft.util.Facing
 import net.minecraft.entity.passive._
 import java.util
-import java.util.List
 import net.bdew.lib.Misc
-import cpw.mods.fml.common.FMLLog
-import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.client.renderer.texture.IconRegister
 import com.tpl.hamcraft.HamCraftMod
-import codechicken.lib.data.NBTDataWrapper
-import net.minecraft.entity.{EntityCreature, passive, EntityLivingBase, Entity}
+import net.minecraft.entity.{EntityCreature, EntityLivingBase}
 import net.minecraft.nbt.NBTTagCompound
-import cpw.mods.fml.common.registry.EntityRegistry
 import com.tpl.hamcraft.config.Items
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.nbt
@@ -23,7 +18,6 @@ import cpw.mods.fml.relauncher.Side
 import cpw.mods.fml.relauncher.SideOnly
 import net.minecraft.util.Icon
 import scala.collection.mutable
-import com.tpl.hamcraft.items.EmancipatedAnimal.AnimalBase
 
 class EmancipatedAnimal(id: Int) extends Item(id) {
 

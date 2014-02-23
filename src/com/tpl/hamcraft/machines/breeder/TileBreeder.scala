@@ -1,11 +1,11 @@
 package com.tpl.hamcraft.machines.breeder
 
-import net.bdew.lib.power.{TileItemProcessor}
-import net.minecraft.item.{ItemStack}
+import net.bdew.lib.power.TileItemProcessor
+import net.minecraft.item.ItemStack
 import net.minecraftforge.common.ForgeDirection
 import com.tpl.hamcraft.config.{Items, Machines}
 import com.tpl.hamcraft.power.TilePowered
-import net.minecraftforge.fluids.{FluidStack, Fluid, IFluidTank, FluidRegistry}
+import net.minecraftforge.fluids.{FluidStack, Fluid, FluidRegistry}
 import com.tpl.hamcraft.items.EmancipatedAnimal
 import net.bdew.lib.rotate.RotateableTile
 import com.tpl.hamcraft.machines.{TileFluidInput, TileIngredientSearch}

@@ -1,7 +1,6 @@
 package com.tpl.hamcraft.machines.feedmixer
 
 import net.bdew.lib.machine.{ProcessorMachine, Machine}
-import com.tpl.hamcraft.machines.breeder.{ContainerBreeder, GuiBreeder, TileBreeder, BlockBreeder}
 import net.bdew.lib.gui.GuiProvider
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.entity.player.EntityPlayer

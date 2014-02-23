@@ -1,7 +1,6 @@
 package com.tpl.hamcraft.machines.breeder
 
 import net.minecraft.entity.player.EntityPlayer
-import net.bdew.lib.gui.BaseScreen
 import net.minecraft.util.ResourceLocation
 import com.tpl.hamcraft.HamCraftMod
 import com.tpl.hamcraft.gui.{Textures, WidgetPowerCustom}

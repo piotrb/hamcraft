@@ -1,6 +1,5 @@
 package com.tpl.hamcraft.machines.feedmixer
 
-import com.tpl.hamcraft.machines.breeder.{ContainerBreeder, TileBreeder}
 import net.minecraft.entity.player.EntityPlayer
 import net.bdew.lib.gui.{Rect, BaseScreen}
 import net.minecraft.util.ResourceLocation

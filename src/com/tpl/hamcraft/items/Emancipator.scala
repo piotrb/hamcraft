@@ -1,21 +1,16 @@
 package com.tpl.hamcraft.items
 
-import net.minecraft.item.{Item, ItemStack, EnumToolMaterial, ItemTool}
+import net.minecraft.item.{ItemStack, EnumToolMaterial, ItemTool}
 import net.minecraft.block.Block
 import com.tpl.hamcraft.power.ItemPowered
-import com.tpl.hamcraft.config.{Items, Tuning}
-import net.minecraft.block.material.Material
+import com.tpl.hamcraft.config.Tuning
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.entity.{Entity, EntityLivingBase}
+import net.minecraft.entity.EntityLivingBase
 import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.client.renderer.texture.IconRegister
 import com.tpl.hamcraft.HamCraftMod
 import net.bdew.lib.Misc
 import java.util
-import cpw.mods.fml.common.registry.EntityRegistry
-import net.minecraft.entity.passive.{EntitySheep, EntityPig}
-import net.minecraft.world.World
-import net.bdew.lib.tile.inventory.BreakableInventoryTile
 import net.bdew.lib.items.ItemUtils
 
 class Emancipator(id: Int) extends ItemTool(id, 0, EnumToolMaterial.IRON, Array.empty[Block]) with ItemPowered {

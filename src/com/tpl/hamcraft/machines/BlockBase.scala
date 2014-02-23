@@ -10,7 +10,6 @@ import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.client.renderer.texture.IconRegister
 import net.minecraft.util.Icon
 import net.minecraft.tileentity.TileEntity
-import scala.reflect.{ClassTag, classTag}
 import net.bdew.lib.rotate.{IconType, RotateableTileBlock}
 
 abstract class BlockBase[T <: TileEntity](val TEClass: Class[_ <: TileEntity], id: Int, shortName: String) extends Block(id, Material.iron) with HasTE[T] with BlockGuiWrenchable with BreakableInventoryBlock with RotateableTileBlock {

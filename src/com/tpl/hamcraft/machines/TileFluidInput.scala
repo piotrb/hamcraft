@@ -7,9 +7,6 @@ import net.minecraftforge.common.ForgeDirection
 import net.minecraftforge.fluids.{FluidContainerRegistry, IFluidTank}
 import net.bdew.lib.tile.inventory.BaseInventory
 import net.minecraft.item.ItemStack
-import com.tpl.hamcraft.Util
-import cpw.mods.fml.relauncher.FMLLaunchHandler
-import cpw.mods.fml.common.FMLLog
 
 
 trait TileFluidInput extends TileDataSlots with ExposeTank with BaseInventory
@@ -54,10 +51,10 @@ trait TileFluidInput extends TileDataSlots with ExposeTank with BaseInventory
       if (isValidInputFluidContainer(itemStack)) {
         val containerData = FluidContainerRegistry.getRegisteredFluidContainerData.find(cd => cd.filledContainer.getItem == itemStack.getItem).get
         val fluidStack = containerData.fluid
-        if(inputTank.fill(fluidStack, false) == fluidStack.amount) {
+        if(inputTank.fill(fluidStack, doFill = false) == fluidStack.amount) {
           val containerOutputStack = getStackInSlot(fluidInputContainerOutSlot)
           if (containerOutputCanAdd(containerData.emptyContainer)) {
-            inputTank.fill(fluidStack, true)
+            inputTank.fill(fluidStack, doFill = true)
             decrStackSize(fluidInputContainerInSlot, 1)
             if (containerOutputStack != null && containerOutputStack.stackSize > 0) {
               containerOutputStack.stackSize += 1

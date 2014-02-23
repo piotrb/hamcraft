@@ -2,10 +2,9 @@ package com.tpl.hamcraft.machines.feedmixer
 
 import com.tpl.hamcraft.power.TilePowered
 import com.tpl.hamcraft.config.{Fluids, Machines}
-import net.bdew.lib.data.{DataSlotTank, DataSlotTankRestricted}
+import net.bdew.lib.data.DataSlotTank
 import net.minecraftforge.fluids._
-import net.minecraftforge.common.ForgeDirection
-import net.minecraft.item.{ItemStack}
+import net.minecraft.item.ItemStack
 import net.bdew.lib.rotate.RotateableTile
 import cpw.mods.fml.common.FMLLog
 import com.tpl.hamcraft.machines.{TileFluidInput, TileFluidProcessor, TileIngredientSearch}

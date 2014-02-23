@@ -1,13 +1,10 @@
 package com.tpl.hamcraft.machines.breeder
 
-import net.bdew.lib.power.{TileItemProcessor}
-import com.tpl.hamcraft.config.{Fluids, Config, Items, Machines}
+import net.bdew.lib.power.TileItemProcessor
+import com.tpl.hamcraft.config.{Fluids, Machines}
 import com.tpl.hamcraft.power.TilePowered
-import net.bdew.lib.tile.ExposeTank
 import net.bdew.lib.rotate.RotateableTile
 import com.tpl.hamcraft.machines.{TileFluidInput, TileIngredientSearch}
-import net.minecraftforge.common.ForgeDirection
-import net.minecraftforge.fluids.IFluidTank
 import net.minecraft.item.ItemStack
 
 class TileIncubator extends TileItemProcessor with TileFluidInput with TilePowered with RotateableTile with TileIngredientSearch {

@@ -1,18 +1,15 @@
 package com.tpl.hamcraft
 
-import cpw.mods.fml.common.{FMLLog, Mod}
+import cpw.mods.fml.common.Mod
 import cpw.mods.fml.common.event.FMLInitializationEvent
 import cpw.mods.fml.common.event.FMLPostInitializationEvent
 import cpw.mods.fml.common.event.FMLPreInitializationEvent
 import cpw.mods.fml.common.Mod.EventHandler
-import cpw.mods.fml.common.registry.{LanguageRegistry, GameRegistry}
-import net.minecraft.item.{Item, ItemStack}
 import cpw.mods.fml.common.network.{NetworkRegistry, NetworkMod}
 import java.util.logging.Logger
 import java.io.File
 import com.tpl.hamcraft.config._
 import com.tpl.hamcraft.compat.PowerProxy
-import net.minecraftforge.oredict.OreDictionary
 
 @Mod(modid = "HamCraft", name = "H-A-M Craft", version = "HAMCRAFT_VERSION", modLanguage = "scala", dependencies = "required-after:ThermalExpansion@(3.0,);required-after:bdlib@(1.0,);required-after:Forestry")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)

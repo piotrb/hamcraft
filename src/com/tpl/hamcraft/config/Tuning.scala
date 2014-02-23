@@ -2,7 +2,6 @@ package com.tpl.hamcraft.config
 
 import net.bdew.lib.recipes.gencfg._
 import net.bdew.lib.recipes.{RecipeLoader, DelayedStatement, RecipeParser}
-import cpw.mods.fml.common.Loader
 import java.io.{InputStreamReader, FileReader, File}
 import com.tpl.hamcraft.HamCraftMod
 import net.bdew.lib.recipes.gencfg.ConfigSection
