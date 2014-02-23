@@ -5,23 +5,25 @@ import com.tpl.hamcraft.config.{Fluids, Machines}
 import com.tpl.hamcraft.power.TilePowered
 import net.bdew.lib.rotate.RotateableTile
 import com.tpl.hamcraft.machines.{TileFluidInput, TileIngredientSearch}
-import net.minecraft.item.ItemStack
+import net.minecraft.item.{Item, ItemStack}
 
 class TileIncubator extends TileItemProcessor with TileFluidInput with TilePowered with RotateableTile with TileIngredientSearch {
   lazy val cfg = Machines.incubator
 
-  val fluidInputContainerInSlot = 0
-  val fluidInputContainerOutSlot = 1
-  val outputSlots = 2 to 2
+  val inputSlot = 1
+  val fluidInputContainerInSlot = 1
+  val fluidInputContainerOutSlot = 2
+  val outputSlots = 3 to 11
 
   val inputTankSize = cfg.tankSize
   val inputTankFluidId = Fluids.babyfood.getID
 
-  def getSizeInventory = 3
+  def getSizeInventory = 12
 
   allowSided = true
 
-//  override def isItemValidForSlot(slot: Int, itemstack: ItemStack): Boolean = {
+  override def isItemValidForSlot(slot: Int, itemstack: ItemStack): Boolean = {
+    true
 //    slot match {
 //      case x if slotsAnimals.contains(x) => {
 //        if (itemstack != null && itemstack.getItem != null) {
@@ -35,7 +37,7 @@ class TileIncubator extends TileItemProcessor with TileFluidInput with TilePower
 //      case x if feedSlots.contains(x) => true
 //      case _ => false
 //    }
-//  }
+  }
 
   def tryStart(): Boolean = {
 //    if(isReadyToStart) {
@@ -51,7 +53,9 @@ class TileIncubator extends TileItemProcessor with TileFluidInput with TilePower
 //      if(parent2.stackSize <= 0) setInventorySlotContents(1, null)
 //      return true
 //    }
-    false
+//    false
+    output := new ItemStack(Item.carrot)
+    true
   }
 
   override def tryFinish(): Boolean = {
@@ -69,7 +73,8 @@ class TileIncubator extends TileItemProcessor with TileFluidInput with TilePower
 //        return true
 //      }
 //    }
-    false
+    true
+//    false
   }
 
   override def canExtractItem(slot: Int, item: ItemStack, side: Int) = outputSlots.contains(slot)
