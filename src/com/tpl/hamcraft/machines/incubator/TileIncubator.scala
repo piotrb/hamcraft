@@ -5,76 +5,89 @@ import com.tpl.hamcraft.config.{Fluids, Machines}
 import com.tpl.hamcraft.power.TilePowered
 import net.bdew.lib.rotate.RotateableTile
 import com.tpl.hamcraft.machines.{TileFluidInput, TileIngredientSearch}
-import net.minecraft.item.{Item, ItemStack}
+import net.minecraft.item.ItemStack
+import com.tpl.hamcraft.items.EmancipatedAnimal
 
 class TileIncubator extends TileItemProcessor with TileFluidInput with TilePowered with RotateableTile with TileIngredientSearch {
   lazy val cfg = Machines.incubator
 
-  val inputSlot = 1
+  val inputSlot = 0
   val fluidInputContainerInSlot = 1
   val fluidInputContainerOutSlot = 2
-  val outputSlots = 3 to 11
+  val outputSlots = 3 to 3
 
   val inputTankSize = cfg.tankSize
   val inputTankFluidId = Fluids.babyfood.getID
 
-  def getSizeInventory = 12
+  val feedPerCycle = cfg.feedPerCycle
+
+  def getSizeInventory = 4
 
   allowSided = true
 
+  private def itemIsEmancipatedAnimalChild(item: ItemStack): Boolean = {
+    if(item == null) return false
+    item.getItem match {
+      case _:EmancipatedAnimal =>
+        EmancipatedAnimal.getAnimalType(item) != "invalid" && EmancipatedAnimal.isChild(item)
+      case _ =>
+        false
+    }
+  }
+
   override def isItemValidForSlot(slot: Int, itemstack: ItemStack): Boolean = {
-    true
-//    slot match {
-//      case x if slotsAnimals.contains(x) => {
-//        if (itemstack != null && itemstack.getItem != null) {
-//          getStackInSlot(slot) == null &&
-//            itemstack.stackSize == 1 &&
-//            itemIsEmancipatedAnimal(itemstack)
-//        } else false
-//      }
-//      case x if transferSlots.contains(x) => false
-//      case x if outputSlots.contains(x) => false
-//      case x if feedSlots.contains(x) => true
-//      case _ => false
-//    }
+    slot match {
+      case `inputSlot` => itemIsEmancipatedAnimalChild(itemstack)
+      case `fluidInputContainerInSlot` => isValidInputFluidContainer(itemstack)
+      case `fluidInputContainerOutSlot` => false
+      case x if outputSlots.contains(x) => false
+      case _ => false
+    }
+  }
+
+  private def inputIsChild = itemIsEmancipatedAnimalChild(getStackInSlot(inputSlot))
+  private def hasFeed = inputTankAmount > feedPerCycle
+
+  private def healChild(itemStack: ItemStack) {
+    if(itemStack.getItemDamage > 0) {
+      itemStack.setItemDamage(itemStack.getItemDamage - 1)
+      if(itemStack.getItemDamage == 0) {
+        EmancipatedAnimal.growUp(itemStack)
+      }
+    }
+  }
+
+  override def onInventoryChanged() {
+    if(!(output :== null) && getStackInSlot(inputSlot) == null) {
+      output := null
+      progress := 0
+    }
+    super.onInventoryChanged()
   }
 
   def tryStart(): Boolean = {
-//    if(isReadyToStart) {
-//      val parent1 = getStackInSlot(0)
-//      val parent2 = getStackInSlot(1)
-//
-//      val info = EmancipatedAnimal.infoForStack(parent1).get
-//      val slot = findIngredientSlot(feedSlots, info.breedingFood, 2).get
-//
-//      output := EmancipatedAnimal.makeChild(parent1, parent2)
-//      decrStackSize(slot, 2)
-//      if(parent1.stackSize <= 0) setInventorySlotContents(0, null)
-//      if(parent2.stackSize <= 0) setInventorySlotContents(1, null)
-//      return true
-//    }
-//    false
-    output := new ItemStack(Item.carrot)
-    true
+    if(inputIsChild && hasFeed) {
+      val child = getStackInSlot(inputSlot).copy()
+      healChild(child)
+      output := child
+      return true
+    }
+    false
   }
 
   override def tryFinish(): Boolean = {
-//    if(getStackInSlot(2) == null && getStackInSlot(3) == null && getStackInSlot(4) == null) {
-//      if(super.tryFinish()) {
-//        val parent1 = getStackInSlot(0)
-//        val parent2 = getStackInSlot(1)
-//        setInventorySlotContents(0, null)
-//        setInventorySlotContents(1, null)
-//
-//        if(parent1 != null && parent1.stackSize > 0) setInventorySlotContents(2, parent1)
-//        if(parent2 != null && parent2.stackSize > 0) setInventorySlotContents(3, parent2)
-//
-//        tank.drain(1000, true)
-//        return true
-//      }
-//    }
-    true
-//    false
+
+    if(EmancipatedAnimal.isChild(output)) {
+      setInventorySlotContents(inputSlot, output)
+      output := null
+    } else {
+      if(getStackInSlot(outputSlots.head) != null) return false // wait for slot to empty
+      setInventorySlotContents(outputSlots.head, output)
+      setInventorySlotContents(inputSlot, null)
+      output := null
+    }
+    drainInputTank(feedPerCycle)
+    output :== null
   }
 
   override def canExtractItem(slot: Int, item: ItemStack, side: Int) = outputSlots.contains(slot)

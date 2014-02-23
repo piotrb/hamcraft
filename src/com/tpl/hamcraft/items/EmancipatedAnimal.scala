@@ -25,7 +25,7 @@ class EmancipatedAnimal(id: Int) extends Item(id) {
 
   setUnlocalizedName(HamCraftMod.modId + ".emancipatedanimal")
 
-  setMaxStackSize(16)
+  setMaxStackSize(1)
   setMaxDamage(10)
 
   setHasSubtypes(true)
@@ -33,6 +33,7 @@ class EmancipatedAnimal(id: Int) extends Item(id) {
   def getAnimalType(stack: ItemStack) = EmancipatedAnimal.getAnimalType(stack)
   def infoForSubtype(name: String) = EmancipatedAnimal.infoForSubtype(name)
   def infoForEntity(entity: EntityLivingBase) = EmancipatedAnimal.infoForEntity(entity)
+  def isChild(stack: ItemStack) = EmancipatedAnimal.isChild(stack)
   def entityTypes = EmancipatedAnimal.entityTypes
   def cfg = EmancipatedAnimal.cfg
 
@@ -77,13 +78,6 @@ class EmancipatedAnimal(id: Int) extends Item(id) {
       if (!player.capabilities.isCreativeMode) {
         stack.stackSize -= 1
       }
-    }
-    false
-  }
-
-  def isChild(stack: ItemStack): Boolean = {
-    if(stack.getTagCompound != null) {
-      return stack.stackTagCompound.getBoolean("child")
     }
     false
   }
@@ -190,6 +184,18 @@ object EmancipatedAnimal {
     Items.emancipatedAnimal.onCreateSubtype(stack, getAnimalType(parent1), child = true)
     stack.setItemDamage(stack.getMaxDamage)
     stack
+  }
+
+  def growUp(child: ItemStack) {
+    child.stackTagCompound.setBoolean("child", false)
+  }
+
+
+  def isChild(stack: ItemStack): Boolean = {
+    if(stack.getTagCompound != null) {
+      return stack.stackTagCompound.getBoolean("child")
+    }
+    false
   }
 
   def breedingFood(itemStack: ItemStack): String = {

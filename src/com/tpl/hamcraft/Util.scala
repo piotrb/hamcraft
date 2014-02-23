@@ -49,11 +49,28 @@ object Util {
   }
 
   def debug(label: String, itemStack: ItemStack) {
-    FMLLog.info("%s: %s (%s) (%d)", label, itemStack.getUnlocalizedName, itemStack.getDisplayName, itemStack.stackSize.asInstanceOf[AnyRef])
+    if(itemStack == null) FMLLog.info("%s: null", label)
+    else FMLLog.info("%s: %s (%s) (%d) %s", label, itemStack.getUnlocalizedName, itemStack.getDisplayName, itemStack.stackSize.asInstanceOf[AnyRef], itemStack.getTooltip(null, true).toString)
+  }
+
+  def debug(label: String, item: Item) {
+    FMLLog.info("%s: %s", label, item.getUnlocalizedName)
   }
 
   def debug(label: String, int: Int) {
     FMLLog.info("%s: %d", label, int.asInstanceOf[AnyRef])
+  }
+
+  def debug(label: String, bool: Boolean) {
+    FMLLog.info("%s: %s", label, bool.toString)
+  }
+
+  def debug(label: String, string: String) {
+    FMLLog.info("%s: %s", label, string)
+  }
+
+  def debug(label: String) {
+    FMLLog.info("%s", label)
   }
 
 }

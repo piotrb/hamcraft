@@ -12,6 +12,7 @@ class MachineIncubator extends Machine("Incubator", new BlockIncubator(_)) with 
   type TEClass = TileIncubator
 
   lazy val tankSize = tuning.getInt("TankSize")
+  lazy val feedPerCycle = tuning.getInt("feedPerCycle")
 
   @SideOnly(Side.CLIENT)
   def getGui(te: TileIncubator, player: EntityPlayer): GuiContainer = new GuiIncubator(te, player)
