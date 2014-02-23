@@ -1,21 +1,16 @@
 package com.tpl.hamcraft.machines.breeder
 
-import net.bdew.lib.data.base.UpdateKind
-import net.bdew.lib.tile.inventory.PersistentInventoryTile
-import net.bdew.lib.power.{TileItemProcessor, DataSlotPower}
-import net.bdew.lib.data.{DataSlotItemStack, DataSlotTankRestricted, DataSlotString}
-import net.minecraft.item.{Item, ItemStack}
+import net.bdew.lib.power.{TileItemProcessor}
+import net.minecraft.item.{ItemStack}
 import net.minecraftforge.common.ForgeDirection
 import com.tpl.hamcraft.config.{Items, Machines}
 import com.tpl.hamcraft.power.TilePowered
-import net.bdew.lib.tile.ExposeTank
 import net.minecraftforge.fluids.{FluidStack, Fluid, IFluidTank, FluidRegistry}
 import com.tpl.hamcraft.items.EmancipatedAnimal
-import net.bdew.lib.items.ItemUtils
 import net.bdew.lib.rotate.RotateableTile
-import com.tpl.hamcraft.machines.TileIngredientSearch
+import com.tpl.hamcraft.machines.{TileFluidInput, TileIngredientSearch}
 
-class TileBreeder extends TileItemProcessor with TilePowered with ExposeTank with RotateableTile with TileIngredientSearch {
+class TileBreeder extends TileItemProcessor with TileFluidInput with TilePowered with RotateableTile with TileIngredientSearch {
   lazy val cfg = Machines.breeder
 
   val slotsAnimals = 0 to 1
@@ -23,13 +18,15 @@ class TileBreeder extends TileItemProcessor with TilePowered with ExposeTank wit
   val outputSlots = 4 to 4
   val feedSlots = 5 to 14
 
-  val tank = DataSlotTankRestricted("tank", this, cfg.tankSize, FluidRegistry.WATER.getID)
+  val inputTankSize = cfg.tankSize
+  val inputTankFluidId = FluidRegistry.WATER.getID
+
+  val fluidInputContainerInSlot = -1
+  val fluidInputContainerOutSlot = -1
 
   def getSizeInventory = 15
 
   allowSided = true
-
-  def getTankFromDirection(dir: ForgeDirection): IFluidTank = tank
 
   def itemIsEmancipatedAnimal(item: ItemStack): Boolean = {
     item.getItem match {
@@ -58,7 +55,7 @@ class TileBreeder extends TileItemProcessor with TilePowered with ExposeTank wit
   def isReadyToStart: Boolean = {
     val parent1 = getStackInSlot(0)
     val parent2 = getStackInSlot(1)
-    if(parent1 != null && parent2 != null && tank.getFluidAmount >= 1000) {
+    if(parent1 != null && parent2 != null && inputTankAmount >= 1000) {
       if(Items.emancipatedAnimal.getAnimalType(parent1) == Items.emancipatedAnimal.getAnimalType(parent2)) {
 
         val info = EmancipatedAnimal.infoForStack(parent1).get
@@ -87,8 +84,12 @@ class TileBreeder extends TileItemProcessor with TilePowered with ExposeTank wit
     false
   }
 
+  def outputsAreEmpty = {
+    getStackInSlot(2) == null && getStackInSlot(3) == null && getStackInSlot(4) == null
+  }
+
   override def tryFinish(): Boolean = {
-    if(getStackInSlot(2) == null && getStackInSlot(3) == null && getStackInSlot(4) == null) {
+    if(outputsAreEmpty) {
       if(super.tryFinish()) {
         val parent1 = getStackInSlot(0)
         val parent2 = getStackInSlot(1)
@@ -98,7 +99,8 @@ class TileBreeder extends TileItemProcessor with TilePowered with ExposeTank wit
         if(parent1 != null && parent1.stackSize > 0) setInventorySlotContents(2, parent1)
         if(parent2 != null && parent2.stackSize > 0) setInventorySlotContents(3, parent2)
 
-        tank.drain(1000, true)
+        drainInputTank(1000)
+
         return true
       }
     }

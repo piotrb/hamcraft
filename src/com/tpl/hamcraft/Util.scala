@@ -4,6 +4,7 @@ import cpw.mods.fml.common.FMLLog
 import net.minecraftforge.oredict.OreDictionary
 import net.minecraft.item.{Item, ItemStack}
 import net.minecraft.block.Block
+import net.minecraftforge.fluids.FluidStack
 
 object Util {
 
@@ -41,6 +42,18 @@ object Util {
       FMLLog.info("")
     })
     FMLLog.info("**************************************")
+  }
+
+  def debug(label: String, fluidStack: FluidStack) {
+    FMLLog.info("%s: (id: %d) %s (%s) (%d)", label, fluidStack.fluidID.asInstanceOf[AnyRef], fluidStack.getFluid.getName, fluidStack.getFluid.getLocalizedName, fluidStack.amount.asInstanceOf[AnyRef])
+  }
+
+  def debug(label: String, itemStack: ItemStack) {
+    FMLLog.info("%s: %s (%s) (%d)", label, itemStack.getUnlocalizedName, itemStack.getDisplayName, itemStack.stackSize.asInstanceOf[AnyRef])
+  }
+
+  def debug(label: String, int: Int) {
+    FMLLog.info("%s: %d", label, int.asInstanceOf[AnyRef])
   }
 
 }

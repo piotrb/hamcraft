@@ -1,7 +1,8 @@
 tile.hamcraft.breeder.name=Breeder
-tile.hamcraft.babyfood.name=Baby Food
+tile.hamcraft.babyfood.name=Baby Formula
+tile.hamcraft.feedmixer.name=Feed Mixer
 
-fluid.hamcraft.babyfood=Baby Food
+fluid.hamcraft.babyfood=Baby Formula
 
 item.hamcraft.emancipator.name=Emancipator
 item.hamcraft.emancipatedanimal.pig.name=Pig Capsule
@@ -10,7 +11,7 @@ item.hamcraft.emancipatedanimal.cow.name=Cow Capsule
 item.hamcraft.emancipatedanimal.squid.name=Squid Capsule
 item.hamcraft.emancipatedanimal.invalid.name=Invalid Item
 
-item.hamcraft.babyfood.bucket.name=Bucket of Baby Food
+item.hamcraft.babyfood.bucket.name=Bucket of Baby Formula
 
 hamcraft.animal.sheep=Sheep
 hamcraft.animal.pig=Pig

@@ -20,6 +20,6 @@ class GuiBreeder(val te: TileBreeder, player: EntityPlayer) extends BaseScreen(n
     widgets.add(new WidgetPowerCustom(new Rect(8, 19, 16, 58), Textures.powerFill, te.power))
 
     // water
-    widgets.add(new WidgetFluidGauge(new Rect(26, 19, 16, 58), Textures.tankOverlay, te.tank))
+    widgets.add(new WidgetFluidGauge(new Rect(26, 19, 16, 58), Textures.tankOverlay, te.inputTank))
   }
 }

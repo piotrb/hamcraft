@@ -17,7 +17,7 @@ class GuiFeedMixer(val te: TileFeedMixer, player: EntityPlayer) extends BaseScre
     widgets.add(new WidgetProgressBar(new Rect(84, 18, 66, 15), Textures.whiteProgress(66), te.progress))
     widgets.add(new WidgetPowerCustom(new Rect(8, 13, 9, 27), Textures.powerFill, te.power))
     widgets.add(new WidgetLabel(Misc.toLocal("tile.hamcraft.feedmixer.name"), 8, 4, 4210752))
-    widgets.add(new WidgetFluidGauge(new Rect(19, 13, 9, 27), Textures.tankOverlay, te.milkTank))
-    widgets.add(new WidgetFluidGauge(new Rect(159, 13, 9, 27), Textures.tankOverlay, te.feedTank))
+    widgets.add(new WidgetFluidGauge(new Rect(19, 13, 9, 27), Textures.tankOverlay, te.inputTank))
+    widgets.add(new WidgetFluidGauge(new Rect(159, 13, 9, 27), Textures.tankOverlay, te.outputTank))
   }
 }
