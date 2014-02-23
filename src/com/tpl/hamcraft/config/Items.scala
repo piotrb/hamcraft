@@ -10,37 +10,13 @@ import net.minecraftforge.fluids.FluidContainerRegistry
 
 object Items extends ItemManager(Config.IDs) {
 
-//  val mutagenCan = regItemCls(classOf[ItemMutagenCan], "MutagenCan")
-//
-//  FluidContainerRegistry.registerFluidContainer(Fluids.mutagen, new ItemStack(mutagenBucket), new ItemStack(Item.bucketEmpty))
-//  FluidContainerRegistry.registerFluidContainer(Fluids.mutagen, new ItemStack(mutagenCan), ItemInterface.getItem("canEmpty"))
-//
-//  val geneSample = regItem(new GeneSample(ids.getItemId("GeneSample")))
-//  val geneTemplate = regItem(new GeneTemplate(ids.getItemId("GeneTemplate")))
-//
-//  val upgradeItem = regItemCls(classOf[ItemApiaryUpgrade], "ApiaryUpgrade")
-//
-//  val grafter = regItemCls(classOf[IndustrialGrafter], "IndustrialGrafter", false)
-//  GameRegistry.registerCustomItemStack("IndustrialGrafter", grafter.stackWithCharge(0))
-//
-//  regSimpleItem("MutagenTank")
-//  regSimpleItem("BeeReceptacle")
-//  regSimpleItem("PowerModule")
-//  regSimpleItem("GeneticsProcessor")
-//  regSimpleItem("UpgradeFrame")
-//  regSimpleItem("ClimateModule")
-//
-//  val labware = regSimpleItem("Labware")
-//  val waste = regSimpleItem("Waste")
-//  val geneSampleBlank = regSimpleItem("GeneSampleBlank")
-
   val babyfoodBucket = regItemCls(classOf[ItemBabyFoodBucket], "BabyFoodBucket")
   FluidContainerRegistry.registerFluidContainer(Fluids.babyfood, new ItemStack(babyfoodBucket), new ItemStack(Item.bucketEmpty))
 
-  val emancipator = regItemCls(classOf[Emancipator], "Emancipator", false)
+  val emancipator = regItemCls(classOf[Emancipator], "Emancipator", addStack = false)
   GameRegistry.registerCustomItemStack("Emancipator", emancipator.stackWithCharge(0))
 
-  val emancipatedAnimal = regItemCls(classOf[EmancipatedAnimal], "EmancipatedAnimal", false)
+  val emancipatedAnimal = regItemCls(classOf[EmancipatedAnimal], "EmancipatedAnimal", addStack = false)
   GameRegistry.registerCustomItemStack("EmancipatedAnimal", new ItemStack(emancipatedAnimal))
 
   HamCraftMod.logInfo("Items loaded")

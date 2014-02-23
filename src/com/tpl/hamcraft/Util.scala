@@ -8,7 +8,7 @@ import net.minecraftforge.fluids.FluidStack
 
 object Util {
 
-  def registerOreDictionary {
+  def registerOreDictionary() {
     OreDictionary.registerOre("seedAny", new ItemStack(Item.seeds))
     OreDictionary.registerOre("seedAny", new ItemStack(Item.melonSeeds))
     OreDictionary.registerOre("seedAny", new ItemStack(Item.pumpkinSeeds))
@@ -26,7 +26,7 @@ object Util {
     OreDictionary.registerOre("foodRootVegetables", new ItemStack(Item.carrot))
   }
 
-  def dumpOreDictionary {
+  def dumpOreDictionary() {
     FMLLog.info("**************************************")
     FMLLog.info("Dumping Ore Dictionary ...")
     FMLLog.info("")

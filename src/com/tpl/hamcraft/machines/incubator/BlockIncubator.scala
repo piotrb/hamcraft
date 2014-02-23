@@ -1,4 +1,4 @@
-package com.tpl.hamcraft.machines.breeder
+package com.tpl.hamcraft.machines.incubator
 
 import com.tpl.hamcraft.config.Machines
 import com.tpl.hamcraft.machines.BlockBase

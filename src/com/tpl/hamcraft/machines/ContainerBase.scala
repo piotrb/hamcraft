@@ -7,9 +7,7 @@ import net.bdew.lib.data.base.ContainerDataSlots
 
 abstract class ContainerBase[T <: IInventory](private val te: T, player: EntityPlayer) extends BaseContainer(te) with ContainerDataSlots {
 
-  def canInteractWith(entityplayer: EntityPlayer): Boolean = {
-    return te.isUseableByPlayer(entityplayer)
-  }
+  def canInteractWith(entityplayer: EntityPlayer): Boolean = te.isUseableByPlayer(entityplayer)
 
   def addSlotSet(startingSlot: Int, rows: Int, cols: Int, startX: Int, startY: Int) {
     var inventorySlot = startingSlot

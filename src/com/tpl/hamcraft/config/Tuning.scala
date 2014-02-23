@@ -79,7 +79,7 @@ object TuningLoader {
 
   val loader = new Loader
 
-  def loadDealayed() = loader.processDelayedStatements()
+  def loadDelayed() = loader.processDelayedStatements()
 
   def load(part: String, checkJar: Boolean = true) {
     val f = new File(HamCraftMod.configDir, "%s-%s.cfg".format(HamCraftMod.modId, part))

@@ -32,16 +32,16 @@ object HamCraftMod {
     configDir = event.getModConfigurationDirectory
     TuningLoader.load("tuning")
     TuningLoader.load("recipes")
-    TuningLoader.load("override", false)
+    TuningLoader.load("override", checkJar = false)
     Config.load(event.getSuggestedConfigurationFile)
   }
 
   @EventHandler
   def init(event: FMLInitializationEvent) {
     NetworkRegistry.instance.registerGuiHandler(this, Config.guiHandler)
-    Util.registerOreDictionary
+    Util.registerOreDictionary()
 //    Upgrades.init()
-    TuningLoader.loadDealayed()
+    TuningLoader.loadDelayed()
   }
 
   @EventHandler

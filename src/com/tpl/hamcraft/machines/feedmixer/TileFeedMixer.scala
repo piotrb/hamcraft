@@ -65,7 +65,7 @@ class TileFeedMixer extends TileFluidProcessor with TileFluidInput with TilePowe
 
   def tryStart(): Boolean = {
     if(consumeIngredients) {
-      output.fill(1000, true)
+      output.fill(1000, doFill = true)
       return true
     }
     false

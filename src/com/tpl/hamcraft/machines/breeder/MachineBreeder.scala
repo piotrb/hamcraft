@@ -13,9 +13,6 @@ class MachineBreeder extends Machine("Breeder", new BlockBreeder(_)) with GuiPro
 
   lazy val tankSize = tuning.getInt("TankSize")
 
-//  lazy val labwareConsumeChance = tuning.getInt("LabwareConsumeChance")
-//  lazy val convertEBSerums = tuning.getBoolean("ConvertEBSerums")
-
   @SideOnly(Side.CLIENT)
   def getGui(te: TileBreeder, player: EntityPlayer): GuiContainer = new GuiBreeder(te, player)
   def getContainer(te: TileBreeder, player: EntityPlayer): Container = new ContainerBreeder(te, player)

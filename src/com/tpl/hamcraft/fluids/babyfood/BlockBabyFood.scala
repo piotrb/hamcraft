@@ -28,12 +28,12 @@ class BlockBabyFood(id: Int) extends BlockFluidClassic(id, Fluids.babyfood, Mate
 
   override def canDisplace(world: IBlockAccess, x: Int, y: Int, z: Int): Boolean = {
     if (world.getBlockMaterial(x, y, z).isLiquid) return false
-    return super.canDisplace(world, x, y, z)
+    super.canDisplace(world, x, y, z)
   }
 
   override def displaceIfPossible(world: World, x: Int, y: Int, z: Int): Boolean = {
     if (world.getBlockMaterial(x, y, z).isLiquid) return false
-    return super.displaceIfPossible(world, x, y, z)
+    super.displaceIfPossible(world, x, y, z)
   }
 
   @ForgeSubscribe

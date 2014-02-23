@@ -1,4 +1,4 @@
-package com.tpl.hamcraft.machines.breeder
+package com.tpl.hamcraft.machines.incubator
 
 import net.minecraft.entity.player.EntityPlayer
 import com.tpl.hamcraft.machines.ContainerBase

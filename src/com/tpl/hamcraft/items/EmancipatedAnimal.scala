@@ -32,10 +32,10 @@ class EmancipatedAnimal(id: Int) extends Item(id) {
 
   setHasSubtypes(true)
 
-  implicit def getAnimalType(stack: ItemStack) = EmancipatedAnimal.getAnimalType(stack)
-  implicit def infoForSubtype(name: String) = EmancipatedAnimal.infoForSubtype(name)
-  implicit def infoForEntity(entity: EntityLivingBase) = EmancipatedAnimal.infoForEntity(entity)
-  implicit def entityTypes = EmancipatedAnimal.entityTypes
+  def getAnimalType(stack: ItemStack) = EmancipatedAnimal.getAnimalType(stack)
+  def infoForSubtype(name: String) = EmancipatedAnimal.infoForSubtype(name)
+  def infoForEntity(entity: EntityLivingBase) = EmancipatedAnimal.infoForEntity(entity)
+  def entityTypes = EmancipatedAnimal.entityTypes
 
   def entityToSpawn(stack: ItemStack, world: World): EntityCreature = {
     val typeString = getAnimalType(stack)
@@ -86,7 +86,7 @@ class EmancipatedAnimal(id: Int) extends Item(id) {
     if(stack.getTagCompound != null) {
       return stack.stackTagCompound.getBoolean("child")
     }
-    return false
+    false
   }
 
   override def addInformation(stack: ItemStack, player: EntityPlayer, list: util.List[_], par4: Boolean) {
@@ -111,14 +111,14 @@ class EmancipatedAnimal(id: Int) extends Item(id) {
 
 
   override def getUnlocalizedName(stack: ItemStack): String = {
-    getUnlocalizedName() + "." + getAnimalType(stack)
+    super.getUnlocalizedName + "." + getAnimalType(stack)
   }
 
   override def getSubItems(id: Int, tab: CreativeTabs, list: util.List[_]) = {
     val l = list.asInstanceOf[java.util.List[ItemStack]]
     entityTypes.foreach( info => {
       var stack = new ItemStack(id, 1, 0)
-      onCreateSubtype(stack, info.name, false)
+      onCreateSubtype(stack, info.name, child = false)
       l.add(stack)
     })
   }
@@ -212,7 +212,7 @@ object EmancipatedAnimal {
     damageStack(parent1, 1)
     damageStack(parent2, 1)
     val stack = new ItemStack(Items.emancipatedAnimal)
-    Items.emancipatedAnimal.onCreateSubtype(stack, getAnimalType(parent1), true)
+    Items.emancipatedAnimal.onCreateSubtype(stack, getAnimalType(parent1), child = true)
     stack.setItemDamage(stack.getMaxDamage)
     stack
   }
@@ -228,6 +228,6 @@ object EmancipatedAnimal {
       val name = stack.getTagCompound.getString("entityName")
       if(name != "") return name
     }
-    return "invalid"
+    "invalid"
   }
 }

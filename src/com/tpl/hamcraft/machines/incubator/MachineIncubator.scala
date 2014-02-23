@@ -1,4 +1,4 @@
-package com.tpl.hamcraft.machines.breeder
+package com.tpl.hamcraft.machines.incubator
 
 import net.bdew.lib.machine.{ProcessorMachine, Machine}
 import net.bdew.lib.gui.GuiProvider

@@ -38,13 +38,12 @@ class TileBreeder extends TileItemProcessor with TileFluidInput with TilePowered
 
   override def isItemValidForSlot(slot: Int, itemstack: ItemStack): Boolean = {
     slot match {
-      case x if slotsAnimals.contains(x) => {
+      case x if slotsAnimals.contains(x) =>
         if (itemstack != null && itemstack.getItem != null) {
           getStackInSlot(slot) == null &&
             itemstack.stackSize == 1 &&
             itemIsEmancipatedAnimal(itemstack)
         } else false
-      }
       case x if transferSlots.contains(x) => false
       case x if outputSlots.contains(x) => false
       case x if feedSlots.contains(x) => true

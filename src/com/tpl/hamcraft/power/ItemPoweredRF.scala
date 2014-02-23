@@ -16,7 +16,7 @@ trait ItemPoweredRF extends ItemPoweredBase with IEnergyContainerItem {
     val charge = getCharge(container)
     val canCharge = Misc.clamp(maxCharge.toFloat - charge, 0F, maxReceive.toFloat / ratio).floor.toInt
     if (!simulate) setCharge(container, charge + canCharge)
-    return (canCharge * ratio).round
+    (canCharge * ratio).round
   }
 
   def extractEnergy(container: ItemStack, maxExtract: Int, simulate: Boolean): Int = 0

@@ -1,4 +1,4 @@
-package com.tpl.hamcraft.machines.breeder
+package com.tpl.hamcraft.machines.incubator
 
 import net.bdew.lib.power.TileItemProcessor
 import com.tpl.hamcraft.config.{Fluids, Machines}

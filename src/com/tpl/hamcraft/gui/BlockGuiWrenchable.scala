@@ -28,7 +28,7 @@ trait BlockGuiWrenchable extends Block with IDismantleable {
     if (!returnBlock)
       ItemUtils.throwItemAt(world, x, y, z, item)
 
-    return item
+    item
   }
 
   def canDismantle(player: EntityPlayer, world: World, x: Int, y: Int, z: Int): Boolean = true
@@ -36,14 +36,15 @@ trait BlockGuiWrenchable extends Block with IDismantleable {
   override def onBlockActivated(world: World, x: Int, y: Int, z: Int, player: EntityPlayer, meta: Int, xoffs: Float, yoffs: Float, zoffs: Float): Boolean = {
     if (player.isSneaking) {
       val equipped = if (player.getCurrentEquippedItem != null) player.getCurrentEquippedItem.getItem else null
-      if (equipped.isInstanceOf[IToolWrench] && equipped.asInstanceOf[IToolWrench].canWrench(player, x, y, z)) {
-        if (!world.isRemote) world.destroyBlock(x, y, z, true)
-        return true
+      equipped match {
+        case wrench: IToolWrench if wrench.canWrench(player, x, y, z) =>
+          if (!world.isRemote) world.destroyBlock(x, y, z, true)
+          return true
       }
-      return false
+      false
     } else {
       if (!world.isRemote) player.openGui(HamCraftMod.instance, guiId, world, x, y, z)
-      return true
+      true
     }
   }
 }

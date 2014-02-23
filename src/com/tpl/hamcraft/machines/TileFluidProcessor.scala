@@ -21,7 +21,7 @@ abstract class TileFluidProcessor extends TileBaseProcessor with ExposeTank
   def tryFinish(): Boolean = {
     val outputStack = output.drain(1000, true)
     outputTank.fill(outputStack, true)
-    return output.getFluidAmount == 0
+    output.getFluidAmount == 0
   }
 
   override def canExtractItem(slot: Int, item: ItemStack, side: Int) = false
