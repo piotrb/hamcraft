@@ -12,6 +12,8 @@ class MachineFeedMixer extends Machine("FeedMixer", new BlockFeedMixer(_)) with 
   type TEClass = TileFeedMixer
 
   lazy val tankSize = tuning.getInt("TankSize")
+  lazy val milkPerRun = tuning.getInt("milkPerRun")
+  lazy val feedPerRun = tuning.getInt("feedPerRun")
 
   @SideOnly(Side.CLIENT)
   def getGui(te: TileFeedMixer, player: EntityPlayer): GuiContainer = new GuiFeedMixer(te, player)

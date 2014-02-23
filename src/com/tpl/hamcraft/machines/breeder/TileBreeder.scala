@@ -24,6 +24,8 @@ class TileBreeder extends TileItemProcessor with TileFluidInput with TilePowered
   val fluidInputContainerInSlot = -1
   val fluidInputContainerOutSlot = -1
 
+  val waterPerOperation = cfg.waterPerOperation
+
   def getSizeInventory = 15
 
   allowSided = true
@@ -54,7 +56,7 @@ class TileBreeder extends TileItemProcessor with TileFluidInput with TilePowered
   def isReadyToStart: Boolean = {
     val parent1 = getStackInSlot(0)
     val parent2 = getStackInSlot(1)
-    if(parent1 != null && parent2 != null && inputTankAmount >= 1000) {
+    if(parent1 != null && parent2 != null && inputTankAmount >= waterPerOperation) {
       if(Items.emancipatedAnimal.getAnimalType(parent1) == Items.emancipatedAnimal.getAnimalType(parent2)) {
 
         val info = EmancipatedAnimal.infoForStack(parent1).get
@@ -98,7 +100,7 @@ class TileBreeder extends TileItemProcessor with TileFluidInput with TilePowered
         if(parent1 != null && parent1.stackSize > 0) setInventorySlotContents(2, parent1)
         if(parent2 != null && parent2.stackSize > 0) setInventorySlotContents(3, parent2)
 
-        drainInputTank(1000)
+        drainInputTank(waterPerOperation)
 
         return true
       }

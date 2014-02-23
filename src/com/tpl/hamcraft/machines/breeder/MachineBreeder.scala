@@ -12,6 +12,7 @@ class MachineBreeder extends Machine("Breeder", new BlockBreeder(_)) with GuiPro
   type TEClass = TileBreeder
 
   lazy val tankSize = tuning.getInt("TankSize")
+  lazy val waterPerOperation = tuning.getInt("waterPerOperation")
 
   @SideOnly(Side.CLIENT)
   def getGui(te: TileBreeder, player: EntityPlayer): GuiContainer = new GuiBreeder(te, player)

@@ -19,7 +19,8 @@ class TileFeedMixer extends TileFluidProcessor with TileFluidInput with TilePowe
   val outputTank = DataSlotTank("outputTank", this, cfg.tankSize)
   val outputTankFluidId = Fluids.babyfood.getID
 
-  val milkPerRun = 250
+  val milkPerRun = cfg.milkPerRun
+  val feedPerRun = cfg.feedPerRun
 
   val ingredientSlots = 0 to 17
 
@@ -65,7 +66,7 @@ class TileFeedMixer extends TileFluidProcessor with TileFluidInput with TilePowe
 
   def tryStart(): Boolean = {
     if(consumeIngredients) {
-      output.fill(1000, doFill = true)
+      output.fill(feedPerRun, doFill = true)
       return true
     }
     false
