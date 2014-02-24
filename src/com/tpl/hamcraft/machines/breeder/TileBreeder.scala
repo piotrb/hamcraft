@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack
 import net.minecraftforge.common.ForgeDirection
 import com.tpl.hamcraft.config.{Items, Machines}
 import com.tpl.hamcraft.power.TilePowered
-import net.minecraftforge.fluids.{FluidStack, Fluid, FluidRegistry}
+import net.minecraftforge.fluids.{FluidStack, Fluid}
 import com.tpl.hamcraft.items.EmancipatedAnimal
 import net.bdew.lib.rotate.RotateableTile
 import com.tpl.hamcraft.machines.{TileFluidInput, TileIngredientSearch}
@@ -19,7 +19,7 @@ class TileBreeder extends TileItemProcessor with TileFluidInput with TilePowered
   val feedSlots = 5 to 14
 
   val inputTankSize = cfg.tankSize
-  val inputTankFluidId = FluidRegistry.WATER.getID
+  val inputTankFluid = "water"
 
   val fluidInputContainerInSlot = -1
   val fluidInputContainerOutSlot = -1

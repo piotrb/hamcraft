@@ -1,7 +1,7 @@
 package com.tpl.hamcraft.machines.feedmixer
 
 import com.tpl.hamcraft.power.TilePowered
-import com.tpl.hamcraft.config.{Fluids, Machines}
+import com.tpl.hamcraft.config.Machines
 import net.bdew.lib.data.DataSlotTank
 import net.minecraftforge.fluids._
 import net.minecraft.item.ItemStack
@@ -14,10 +14,10 @@ class TileFeedMixer extends TileFluidProcessor with TileFluidInput with TilePowe
   lazy val cfg = Machines.feedmixer
 
   val inputTankSize = cfg.tankSize
-  val inputTankFluidId = getMilkFluid.getID
+  val inputTankFluid = "milk"
 
   val outputTank = DataSlotTank("outputTank", this, cfg.tankSize)
-  val outputTankFluidId = Fluids.babyfood.getID
+  val outputTankFluid = "babyfood"
 
   val milkPerRun = cfg.milkPerRun
   val feedPerRun = cfg.feedPerRun

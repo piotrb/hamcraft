@@ -5,14 +5,24 @@ import net.bdew.lib.data.{DataSlotTank, DataSlotTankRestricted}
 import net.bdew.lib.data.base.UpdateKind
 import net.minecraft.item.ItemStack
 import net.minecraftforge.common.ForgeDirection
-import net.minecraftforge.fluids.{FluidStack, Fluid}
+import net.minecraftforge.fluids.{FluidRegistry, FluidStack, Fluid}
 import net.bdew.lib.tile.ExposeTank
+import cpw.mods.fml.common.FMLLog
 
 abstract class TileFluidProcessor extends TileBaseProcessor with ExposeTank
 {
   val outputTankSize: Int = 1000
-  val outputTankFluidId: Int
+  val outputTankFluid: String
   lazy val output: DataSlotTankRestricted = DataSlotTankRestricted("output", this, outputTankSize, outputTankFluidId).setUpdate(UpdateKind.SAVE)
+
+  def outputTankFluidId: Int = {
+    val fluid = FluidRegistry.getFluid(outputTankFluid)
+    if (fluid == null) {
+      FMLLog.severe("Could not find %s fluid!", outputTankFluid)
+      throw new Exception(String.format("Could not find %s fluid!", outputTankFluid))
+    }
+    fluid.getID
+  }
 
   val outputTank: DataSlotTank
 

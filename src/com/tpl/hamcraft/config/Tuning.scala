@@ -1,7 +1,7 @@
 package com.tpl.hamcraft.config
 
 import net.bdew.lib.recipes.gencfg._
-import net.bdew.lib.recipes.{RecipeLoader, DelayedStatement, RecipeParser}
+import net.bdew.lib.recipes.{RecipeLoader, RecipeParser}
 import java.io.{InputStreamReader, FileReader, File}
 import com.tpl.hamcraft.HamCraftMod
 import net.bdew.lib.recipes.gencfg.ConfigSection
@@ -20,24 +20,12 @@ object TuningLoader {
 
   case class EntryModifierDiv(v: Float) extends EntryModifier
 
-//  case class StMutagen(st: StackRef, mb: Int) extends DelayedStatement
-
-//  case class StAssembly(rec: List[(Char, Int)], power: Int, result: StackRef, cnt: Int) extends CraftingStatement
-
   class Parser extends RecipeParser with GenericConfigParser {
-//    override def statement = mutagen | assembly | super.statement
-//    def mutagen = "mutagen" ~> ":" ~> spec ~ ("->" ~> int) ^^ {
-//      case sp ~ n => StMutagen(sp, n)
-//    }
 
     def charWithCount = recipeChar ~ ("*" ~> int).? ^^ {
       case ch ~ cnt => (ch, cnt.getOrElse(1))
     }
 
-//    def assembly = "assembly" ~> ":" ~> (charWithCount <~ ",").+ ~ (int <~ "mj") ~ ("=>" ~> specWithCount) ^^ {
-//      case r ~ p ~ (s ~ n) => StAssembly(r, p, s, n.getOrElse(1))
-//    }
-//
     override def cfgStatement = cfgAdd | cfgMul | cfgSub | cfgDiv | super.cfgStatement
 
     def cfgAdd = ident ~ ("+" ~> "=" ~> decimalNumber) ^^ { case id ~ n => CfgVal(id, EntryModifierAdd(n.toFloat)) }
@@ -51,30 +39,6 @@ object TuningLoader {
 
     override def newParser(): RecipeParser = new Parser()
 
-    override def processDelayedStatement(s: DelayedStatement): Unit = s match {
-//      case StMutagen(st, mb) =>
-//        val in = getConcreteStack(st)
-//        MutagenRegistry.register(in, mb)
-//        log.info("Added mutagen source %s -> %d mb".format(in, mb))
-//
-//      case StAssembly(rec, power, out, cnt) =>
-//        log.info("Adding assembly recipe: %s + %d mj => %s * %d".format(rec, power, out, cnt))
-//        val outStack = getConcreteStack(out, cnt)
-//        val stacks = rec.map {
-//          case (c, n) =>
-//            val s = getConcreteStack(currCharMap(c), n)
-//            if (s.getItemDamage == OreDictionary.WILDCARD_VALUE) {
-//              s.setItemDamage(0)
-//              log.warning("%s added with wildcard metadata which is unsupported, assuming 0".format(s))
-//            }
-//            log.info("%s -> %s".format(c, s))
-//            s
-//        }
-//        log.info("Output: %s".format(outStack))
-//        AssemblyRecipe.assemblyRecipes.add(new AssemblyRecipe(stacks.toArray, power, outStack))
-//        log.info("Done")
-        case _ => super.processDelayedStatement(s)
-    }
   }
 
   val loader = new Loader

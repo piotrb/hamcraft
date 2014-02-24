@@ -9,7 +9,6 @@ object Config {
   var IDs: IdManager = null
   val guiHandler = new GuiHandler
 
-  var neiAddSamples = false
   var powerShowUnits = "RF"
   var powerShowMultiplier = 1F
 
@@ -18,7 +17,6 @@ object Config {
     c.load()
 
     try {
-      neiAddSamples = c.get("NEI", "Add samples", true).getBoolean(false)
       powerShowUnits = "RF"
       powerShowMultiplier = Tuning.getSection("Power").getFloat(powerShowUnits + "_MJ_Ratio")
       IDs = new IdManager(c, 16000, 3600)

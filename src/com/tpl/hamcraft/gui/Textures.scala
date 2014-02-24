@@ -10,6 +10,11 @@ object Textures {
   val powerFill = new TextureLocation(texture, 0, 0)
   val texturePowerError = new TextureLocation(texture, 32, 0)
   val slotSelect = new TextureLocation(texture, 48, 0)
+  val inventorySlot = new TextureLocation(texture, 66, 0)
+
+  val guiFrame = new TextureLocation(texture, 84, 0)
+  val guiFrameTest = new TextureLocation(texture, 96, 0)
+
   def greenProgress(width: Int) = new TextureLocation(texture, 136 - width, 58)
   def whiteProgress(width: Int) = new TextureLocation(texture, 136 - width, 73)
 }

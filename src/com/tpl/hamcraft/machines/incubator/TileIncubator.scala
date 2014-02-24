@@ -1,7 +1,7 @@
 package com.tpl.hamcraft.machines.incubator
 
 import net.bdew.lib.power.TileItemProcessor
-import com.tpl.hamcraft.config.{Fluids, Machines}
+import com.tpl.hamcraft.config.Machines
 import com.tpl.hamcraft.power.TilePowered
 import net.bdew.lib.rotate.RotateableTile
 import com.tpl.hamcraft.machines.{TileFluidInput, TileIngredientSearch}
@@ -17,7 +17,7 @@ class TileIncubator extends TileItemProcessor with TileFluidInput with TilePower
   val outputSlots = 3 to 3
 
   val inputTankSize = cfg.tankSize
-  val inputTankFluidId = Fluids.babyfood.getID
+  val inputTankFluid = "babyfood"
 
   val feedPerCycle = cfg.feedPerCycle
 

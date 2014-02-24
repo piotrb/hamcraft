@@ -73,4 +73,13 @@ object Util {
     FMLLog.info("%s", label)
   }
 
+  def debug(label: String, array: Array[_]) {
+    var string = ""
+    array.foreach(i => {
+      string = String.format("%s, %s", string, i.toString)
+    })
+    string = String.format("[%s]", string)
+    FMLLog.info("%s: %s", label, string)
+  }
+
 }

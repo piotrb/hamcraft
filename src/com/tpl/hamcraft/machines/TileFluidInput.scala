@@ -4,21 +4,31 @@ import net.bdew.lib.data.base.TileDataSlots
 import net.bdew.lib.tile.ExposeTank
 import net.bdew.lib.data.DataSlotTankRestricted
 import net.minecraftforge.common.ForgeDirection
-import net.minecraftforge.fluids.{FluidContainerRegistry, IFluidTank}
+import net.minecraftforge.fluids.{FluidRegistry, FluidContainerRegistry, IFluidTank}
 import net.bdew.lib.tile.inventory.BaseInventory
 import net.minecraft.item.ItemStack
+import cpw.mods.fml.common.FMLLog
 
 
 trait TileFluidInput extends TileDataSlots with ExposeTank with BaseInventory
 {
   val inputTankSize: Int
-  val inputTankFluidId: Int
+  val inputTankFluid: String
   val fluidInputContainerInSlot: Int  // set to -1 to disable
   val fluidInputContainerOutSlot: Int // set to -1 to disable
 
   lazy val inputTank = DataSlotTankRestricted("inputTank", this, inputTankSize, inputTankFluidId)
 
-  implicit def inputTankAmount = inputTank.getFluidAmount
+  def inputTankAmount = inputTank.getFluidAmount
+
+  private def inputTankFluidId: Int = {
+    val fluid = FluidRegistry.getFluid(inputTankFluid)
+    if (fluid == null) {
+      FMLLog.severe("Could not find %s fluid!", inputTankFluid)
+      throw new Exception(String.format("Could not find %s fluid!", inputTankFluid))
+    }
+    fluid.getID
+  }
 
   def drainInputTank(amount: Int) {
     inputTank.drain(amount, true)
