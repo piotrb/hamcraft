@@ -40,10 +40,10 @@ class BaseDynamicScreen(cont: Container, w: Int, h: Int, guiTexture: TextureLoca
 
     color.activate()
     Tessellator.instance.startDrawingQuads()
-    addVertexUVScaled(r.x + r.h, r.y,       z, t.x,         t.y + t.h)
+    addVertexUVScaled(r.x + r.w, r.y,       z, t.x + t.w,   t.y)
     addVertexUVScaled(r.x,       r.y,       z, t.x,         t.y)
-    addVertexUVScaled(r.x,       r.y + r.w, z, t.x + + t.w, t.y)
-    addVertexUVScaled(r.x + r.h, r.y + r.w, z, t.x + t.w,   t.y + t.h)
+    addVertexUVScaled(r.x,       r.y + r.h, z, t.x,         t.y + t.h)
+    addVertexUVScaled(r.x + r.w, r.y + r.h, z, t.x + t.w,   t.y + t.h)
     Tessellator.instance.draw()
   }
 
@@ -56,8 +56,8 @@ class BaseDynamicScreen(cont: Container, w: Int, h: Int, guiTexture: TextureLoca
     drawTextureScaled(new Rect(x+xSize - 4, y+0, 4, 4), gui.topRight)
 
     drawTextureScaled(new Rect(x+0, y+4, 4, ySize - 4 - 4), gui.leftSide)
-//    drawTextureScaled(new Rect(x+4, y+4, ySize - 4 - 4, xSize - 4 - 4), gui.center)
-    drawTextureScaled(new Rect(x+xSize - 4, y+4, 4, ySize - 4 - 4), gui.bottomLeft)
+    drawTextureScaled(new Rect(x+4, y+4, xSize - 4 - 4, ySize - 4 - 4), gui.center)
+    drawTextureScaled(new Rect(x+xSize - 4, y+4, 4, ySize - 4 - 4), gui.rightSide)
 
     drawTextureScaled(new Rect(x+0, y+ySize - 4, 4, 4), gui.bottomLeft)
     drawTextureScaled(new Rect(x+4, y+ySize - 4, xSize - 4 - 4, 4), gui.bottomSide)
