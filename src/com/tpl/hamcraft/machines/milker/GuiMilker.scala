@@ -6,7 +6,7 @@ import net.bdew.lib.Misc
 import com.tpl.hamcraft.gui._
 import net.bdew.lib.gui.Rect
 
-class GuiMilker(val te: TileMilker, player: EntityPlayer) extends BaseDynamicScreen(new ContainerMilker(te, player), 176, 184, Textures.guiFrame) {
+class GuiMilker(val te: TileMilker, player: EntityPlayer) extends BaseDynamicScreen(new ContainerMilker(te, player), 176, 165, Textures.guiFrame) {
 
   override def initGui() {
     super.initGui()
@@ -19,9 +19,7 @@ class GuiMilker(val te: TileMilker, player: EntityPlayer) extends BaseDynamicScr
     widgets.add(new WidgetPowerCustom(new Rect(8, 18, 16, 58), Textures.powerFill, te.power))
 //    widgets.add(new WidgetFluidGauge(new Rect(26, 18, 16, 58), Textures.tankOverlay, te.inputTank))
 
-    // inventory+hotbat
-    widgets.add(new WidgetInventoryGrid(8-1, 84-1, 3, 9, Textures.inventorySlot, new ColorAlpha(1, 0, 0, 0.5F)))
-    widgets.add(new WidgetInventoryGrid(8-1, 142-1, 1, 9, Textures.inventorySlot, new ColorAlpha(0, 1, 0, 0.5F)))
-
+    // width: 162, height: 76
+    widgets.add(new WidgetPlayerInventory(7, 83, Textures.inventorySlot, new ColorAlpha(1,0,0,0.5F), new ColorAlpha(0,1,0,0.5F)))
   }
 }

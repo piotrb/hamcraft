@@ -5,23 +5,6 @@ import net.minecraft.inventory.Container
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.Tessellator
 
-class GuiTextureLocation(guiTexture: TextureLocation) {
-  private lazy val resource = guiTexture.resource
-  private def offsetRect(x: Int, y: Int, w: Int, h: Int) = new Rect(guiTexture.p.x + x, guiTexture.p.y + y, w, h)
-
-  lazy val topLeft     = new TextureLocationScaled(resource, offsetRect(0,0,4,4))
-  lazy val topSide     = new TextureLocationScaled(resource, offsetRect(4,0,4,4))
-  lazy val topRight    = new TextureLocationScaled(resource, offsetRect(8,0,4,4))
-
-  lazy val leftSide    = new TextureLocationScaled(resource, offsetRect(0,4,4,4))
-  lazy val center      = new TextureLocationScaled(resource, offsetRect(4,4,4,4))
-  lazy val rightSide   = new TextureLocationScaled(resource, offsetRect(8,4,4,4))
-
-  lazy val bottomLeft  = new TextureLocationScaled(resource, offsetRect(0,8,4,4))
-  lazy val bottomSide  = new TextureLocationScaled(resource, offsetRect(4,8,4,4))
-  lazy val bottomRight = new TextureLocationScaled(resource, offsetRect(8,8,4,4))
-}
-
 class BaseDynamicScreen(cont: Container, w: Int, h: Int, guiTexture: TextureLocation) extends BaseScreen(cont, w, h) {
   lazy val texture = guiTexture.resource
   lazy val gui = new GuiTextureLocation(guiTexture)

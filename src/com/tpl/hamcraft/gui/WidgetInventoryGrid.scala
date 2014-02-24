@@ -7,7 +7,6 @@ class WidgetInventoryGrid(x: Int, y: Int, rows: Int, cols: Int, texture: Texture
   (0 to rows-1).foreach(row => {
     (0 to cols-1).foreach(col => {
       add(new WidgetInventorySlot((col*18), (row*18), texture, color))
-//      add(new WidgetInventorySlot(x+(col*18), y+(row*18), texture, color))
     })
   })
 }
