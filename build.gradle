@@ -4,6 +4,7 @@ buildscript {
     }
     repositories {
         mavenCentral()
+        // mavenLocal()
         maven {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
@@ -17,7 +18,7 @@ buildscript {
 apply plugin: "forge"
 apply plugin: "scala"
 
-//ext.bdlibver = "1.1.0.21"
+version = "0.0.1"
 ext.bdlibver = "1.2.0.28"
 ext.versuffix = "mc164"
 
@@ -28,6 +29,30 @@ ext.versuffix = "mc164"
 //    ext.bdlibver = "0-SNAPSHOT"
 //    repositories.mavenLocal()
 //}
+
+group= "com.t-p-l"
+archivesBaseName = "hamcraft"
+
+minecraft {
+    version = "1.6.4-9.11.1.964"
+    replace("HAMCRAFT_VERSION", project.version)
+    replace("mcversion", project.minecraft.version)
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "bdew"
+        url = "http://jenkins.bdew.net/maven"
+    }
+}
+
+dependencies {
+    compile "net.bdew:bdlib:" + bdlibver
+    compile project(path: ':deps', configuration: 'deps')
+}
+
+import org.apache.tools.ant.filters.ReplaceTokens
 
 sourceSets
 {
@@ -42,14 +67,16 @@ sourceSets
     }
 }
 
-dependencies {
-    compile "net.bdew:bdlib:" + bdlibver
-    compile project(path: ':deps', configuration: 'deps')
-}
+processResources {
+    inputs.property "tokens", minecraft.replacements
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+        filter(ReplaceTokens, tokens: minecraft.replacements)
+    }
 
-ideaModule {
-    dependsOn task(":deps:sourceJar")
-    dependsOn task(":deps:deobfJar")
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
 }
 
 task sourceJar(type: Jar) {
@@ -71,48 +98,11 @@ artifacts {
     archives deobfJar
 }
 
-group= "com.tpl.hamcraft"
-archivesBaseName = "hamcraft"
+// apply plugin: 'maven-publish'
 
-// define the properties file
-ext.configFile = file "build.properties"
-
-configFile.withReader
-{
-    // read config.  it shall from now on be referenced as simply config or as project.config
-    def prop = new Properties()
-    prop.load(it)
-    project.ext.config = new ConfigSlurper().parse prop
-}
-
-version = config.mod_version
-
-minecraft {
-    version = config.minecraft_version + "-" + config.forge_version // grab latest forge
-    replace("HAMCRAFT_VERSION", project.version)
-    replace("mcversion", project.minecraft.version)
-}
-
-repositories {
-    mavenCentral()
-    maven {
-        name = "bdew"
-        url = "http://jenkins.bdew.net/maven"
-    }
-}
-
-import org.apache.tools.ant.filters.ReplaceTokens
-
-processResources {
-    inputs.property "tokens", minecraft.replacements
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-        filter(ReplaceTokens, tokens: minecraft.replacements)
-    }
-
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
-    }
+ideaModule {
+    dependsOn task(":deps:sourceJar")
+    dependsOn task(":deps:deobfJar")
 }
 
 idea {
@@ -136,7 +126,7 @@ idea {
                 def classesNode = libNode.appendNode 'CLASSES'
                 def sourceNode = libNode.appendNode 'SOURCES'
 
-                // Add the jars, project.depJarPath and project.depSourceJarPath are set in the subproject
+                // Add the jars, project.depJarPath and project.depSourceJarPath are set in the subproject  
                 classesNode.appendNode 'root', [url: 'jar://' + project.depJarPath.getAbsolutePath().replace('\\','/')+'!/']
                 sourceNode.appendNode 'root', [url: 'jar://' + project.depSourceJarPath.getAbsolutePath().replace('\\','/')+'!/']
             }
@@ -144,4 +134,19 @@ idea {
     }
 }
 
-
+// publishing {
+//     publications {
+//         maven(MavenPublication) {
+//             artifact deobfJar
+// 
+//             artifact sourceJar {
+//                 classifier "sources"
+//             }
+//         }
+//     }
+//     repositories {
+//         maven {
+//             url "file://var/www/maven"
+//         }
+//     }
+// }
