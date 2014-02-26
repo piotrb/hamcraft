@@ -1,2 +1,2 @@
 #!/bin/bash -ls
-./gradlew build && rake run
+./gradlew build --offline && rake run

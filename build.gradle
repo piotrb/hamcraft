@@ -17,16 +17,17 @@ buildscript {
 apply plugin: "forge"
 apply plugin: "scala"
 
-ext.bdlibver = "1.1.0.21"
+//ext.bdlibver = "1.1.0.21"
+ext.bdlibver = "1.2.0.28"
 ext.versuffix = "mc164"
 
-if (project.hasProperty('buildnum')) {
-    project.version = project.version + '.' + project.buildnum
-} else {
-    project.version = "0-SNAPSHOT"
-    ext.bdlibver = "0-SNAPSHOT"
-    repositories.mavenLocal()
-}
+//if (project.hasProperty('buildnum')) {
+    project.version = project.version //+ '.' + project.buildnum
+//} else {
+//    project.version = "0-SNAPSHOT"
+//    ext.bdlibver = "0-SNAPSHOT"
+//    repositories.mavenLocal()
+//}
 
 sourceSets
 {
@@ -42,6 +43,7 @@ sourceSets
 }
 
 dependencies {
+    compile "net.bdew:bdlib:" + bdlibver
     compile project(path: ':deps', configuration: 'deps')
 }
 
@@ -89,6 +91,14 @@ minecraft {
     version = config.minecraft_version + "-" + config.forge_version // grab latest forge
     replace("HAMCRAFT_VERSION", project.version)
     replace("mcversion", project.minecraft.version)
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "bdew"
+        url = "http://jenkins.bdew.net/maven"
+    }
 }
 
 import org.apache.tools.ant.filters.ReplaceTokens

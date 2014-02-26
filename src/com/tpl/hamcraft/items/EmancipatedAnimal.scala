@@ -37,7 +37,7 @@ class EmancipatedAnimal(id: Int) extends Item(id) {
   def entityTypes = EmancipatedAnimal.entityTypes
   def cfg = EmancipatedAnimal.cfg
 
-  def entityToSpawn(stack: ItemStack, world: World): EntityCreature = {
+  def entityToSpawn(stack: ItemStack, world: World) = {
     val typeString = getAnimalType(stack)
     val info = infoForSubtype(typeString)
     if (info.isDefined) {
