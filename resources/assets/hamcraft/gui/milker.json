@@ -1,4 +1,28 @@
 {
+    "textures" : {
+        "inventorySlot" : {
+            "file" : "widgets.png",
+            "origin" : {
+                "x": 66,
+                "y": 0
+            }
+        },
+        "guiFrame" : {
+            "file" : "widgets.png",
+            "origin" : {
+                "x": 84,
+                "y": 0
+            }
+        }
+    },
+    "window" : {
+        "mode" : "dynamic",
+        "size" : {
+            "w" : 176,
+            "h" : 165
+        },
+        "texture" : "guiFrame"
+    },
     "widgets" : {
         "title" : {
             "type" : "WidgetLabel",

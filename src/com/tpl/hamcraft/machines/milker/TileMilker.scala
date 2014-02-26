@@ -4,11 +4,13 @@ import net.bdew.lib.power.TileItemProcessor
 import com.tpl.hamcraft.config.Machines
 import com.tpl.hamcraft.power.TilePowered
 import net.bdew.lib.rotate.RotateableTile
-import com.tpl.hamcraft.machines.{TileFluidInput, TileIngredientSearch}
+import com.tpl.hamcraft.machines.{TileConfigurable, TileFluidInput, TileIngredientSearch}
 import net.minecraft.item.ItemStack
+import com.tpl.lib.gui.config.GuiConfig
 
-class TileMilker extends TileItemProcessor with TileFluidInput with TilePowered with RotateableTile with TileIngredientSearch {
+class TileMilker extends TileItemProcessor with TileConfigurable with TileFluidInput with TilePowered with RotateableTile with TileIngredientSearch {
   lazy val cfg = Machines.milker
+  lazy val config = new GuiMilkerConfig
 
   val inputSlot = 0
   val fluidInputContainerInSlot = 1

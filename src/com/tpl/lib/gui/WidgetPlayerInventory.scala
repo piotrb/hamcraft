@@ -1,4 +1,4 @@
-package com.tpl.hamcraft.gui
+package com.tpl.lib.gui
 
 import net.bdew.lib.gui.{WidgetContainer, Rect, Color, TextureLocation}
 import net.bdew.lib.gui.widgets.WidgetSubcontainer

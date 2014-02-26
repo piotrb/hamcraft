@@ -7,6 +7,13 @@ import net.bdew.lib.data.base.ContainerDataSlots
 
 abstract class ContainerBase[T <: IInventory](private val te: T, player: EntityPlayer) extends BaseContainer(te) with ContainerDataSlots {
 
+  // bind player inventory from config
+  if(te.isInstanceOf[TileConfigurable]) {
+    val configTE = te.asInstanceOf[TileConfigurable]
+    val info = configTE.config.getPlayerInventoryContainerInfo("player_inventory")
+    bindPlayerInventory(player.inventory, info.x, info.y, info.hotbarY)
+  }
+
   def canInteractWith(entityplayer: EntityPlayer): Boolean = te.isUseableByPlayer(entityplayer)
 
   def addSlotSet(startingSlot: Int, rows: Int, cols: Int, startX: Int, startY: Int) {

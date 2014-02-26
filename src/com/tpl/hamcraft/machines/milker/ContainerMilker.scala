@@ -14,6 +14,4 @@ class ContainerMilker(val te: TileMilker, player: EntityPlayer) extends Containe
 
 //  addSlotToContainer(new SlotValidating(te, te.fluidInputContainerInSlot, 53, 50))
 //  addSlotToContainer(new SlotValidating(te, te.fluidInputContainerOutSlot, 74, 50))
-
-  bindPlayerInventory(player.inventory, 8, 84, 142)
 }
