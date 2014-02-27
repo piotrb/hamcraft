@@ -20,7 +20,7 @@ import scala.collection.mutable
 
 class EmancipatedAnimal(id: Int) extends Item(id) {
 
-  @SideOnly(Side.CLIENT)
+//  @SideOnly(Side.CLIENT)
   var subTypeIcons: mutable.Map[String, Icon] = mutable.Map.empty[String, Icon]
 
   setUnlocalizedName(HamCraftMod.modId + ".emancipatedanimal")
