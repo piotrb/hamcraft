@@ -1,7 +1,6 @@
 package com.tpl.lib.gui.config
 
-import net.bdew.lib.gui.{Color, Point}
-import com.tpl.lib.gui.Size
+import net.bdew.lib.gui.{Color, Point, Rect}
 import cpw.mods.fml.common.FMLLog
 
 trait MapDataAccess {
@@ -11,12 +10,12 @@ trait MapDataAccess {
 
   protected def getPoint(data: Map[String, Any], key: String) = {
     val info = data(key).asInstanceOf[Map[String, Double]]
-    new Point(info("x").toInt, info("y").toInt)
+    Point(info("x").toFloat, info("y").toFloat)
   }
 
-  protected def getSize(data: Map[String, Any], key: String) = {
+  protected def getRect(data: Map[String, Any], key: String) = {
     val info = data(key).asInstanceOf[Map[String, Double]]
-    new Size(info("w").toInt, info("h").toInt)
+    Rect(info("x").toFloat, info("y").toFloat, info("w").toFloat, info("h").toFloat)
   }
 
   protected def getColor(data: Map[String, Any], key: String) = {

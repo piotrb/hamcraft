@@ -1,15 +1,14 @@
 package com.tpl.lib.gui.config
 
-import net.minecraft.util.ResourceLocation
-import net.bdew.lib.gui.TextureLocation
+import net.bdew.lib.gui.{Texture}
 
 class TextureGuiConfig(data: Map[String, Any], modId: String) extends MapDataAccess {
   def getTexture(key: String) = {
     val info = data(key).asInstanceOf[Map[String, Any]]
-    val origin = getPoint(info, "origin")
+    val rect = getRect(info, "rect")
     val file = getString(info, "file")
+    val scale = getInt(info, "scale")
 
-    val texture = new ResourceLocation(modId + ":textures/gui/" + file)
-    new TextureLocation(texture, origin)
+    Texture.apply(modId + ":textures/gui/" + file, rect, scale)
   }
 }

@@ -11,13 +11,13 @@ trait PlayerInventoryLoading {
   def getPlayerInventoryWidget(name: String) = {
     val info = widgets(name).asInstanceOf[Map[String, Any]]
     val config = new PlayerInventoryWidgetConfig(info, textures)
-    new WidgetPlayerInventory(config.origin.x, config.origin.y, config.texture, config.invColor, config.hotbarColor)
+    new WidgetPlayerInventory(config.origin.x.toInt, config.origin.y.toInt, config.texture, config.invColor, config.hotbarColor)
   }
 
   def getPlayerInventoryContainerInfo(name: String) = {
     val info = widgets(name).asInstanceOf[Map[String, Any]]
     val config = new PlayerInventoryWidgetConfig(info, textures)
-    new PlayerInventoryContainerInfo(config.origin.x + 1, config.origin.y + 1, config.origin.y + 18*3 + 4 + 1)
+    new PlayerInventoryContainerInfo((config.origin.x + 1).toInt, (config.origin.y + 1).toInt, (config.origin.y + 18*3 + 4 + 1).toInt)
   }
 
   class PlayerInventoryWidgetConfig(data: Map[String, Any], textures: TextureGuiConfig) extends WidgetConfigBase(data, textures, "WidgetPlayerInventory") {

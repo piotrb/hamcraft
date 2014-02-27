@@ -13,7 +13,7 @@ class GuiConfig(name: String, modId: String)
   val widgets = data("widgets").asInstanceOf[Map[String, Any]]
 
   val textures = new TextureGuiConfig(data("textures").asInstanceOf[Map[String, Any]], modId)
-  val window = new WindowGuiConfig(data("window").asInstanceOf[Map[String, Any]], textures)
+  val window = new WindowGuiConfig(data("window").asInstanceOf[Map[String, Any]], textures, modId)
 
   private def loadConfig(name: String) {
     val res = "/assets/%s/gui/%s.json".format(modId, name)

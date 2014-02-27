@@ -2,26 +2,44 @@
     "textures" : {
         "inventorySlot" : {
             "file" : "widgets.png",
-            "origin" : {
+            "scale": 256,
+            "rect" : {
                 "x": 66,
-                "y": 0
+                "y": 0,
+                "w": 18,
+                "h": 18
             }
         },
         "guiFrame" : {
             "file" : "widgets.png",
-            "origin" : {
+            "scale": 256,
+            "rect" : {
                 "x": 84,
-                "y": 0
+                "y": 0,
+                "w": 12,
+                "h": 12
             }
         }
     },
     "window" : {
         "mode" : "dynamic",
-        "size" : {
-            "w" : 176,
-            "h" : 165
+        "rect" : {
+            "x": 0,
+            "y": 0,
+            "w": 180,
+            "h": 160
         },
-        "texture" : "guiFrame"
+        "dynamicBackground": {
+            "file" : "widgets.png",
+            "scale": 256,
+            "tileSize" : 4,
+            "rect" : {
+                "x": 84,
+                "y": 0,
+                "w": 12,
+                "h": 12
+            }
+        }
     },
     "widgets" : {
         "title" : {
@@ -36,8 +54,8 @@
         "player_inventory" : {
             "type" : "WidgetPlayerInventory",
             "origin": {
-                "x" : 8,
-                "y" : 6
+                "x" : 9,
+                "y" : 76
             },
             "texture" : "inventorySlot",
             "invColor" : [1.0,1.0,1.0,1.0],

@@ -11,7 +11,7 @@ trait LabelWidgetLoading {
   def getLabelWidget(name: String) = {
     val info = widgets(name).asInstanceOf[Map[String, Any]]
     val config = new LabelWidgetConfig(info, textures)
-    new WidgetLabel(Misc.toLocal(config.label), config.origin.x, config.origin.y, config.color)
+    new WidgetLabel(Misc.toLocal(config.label), config.origin.x.toInt, config.origin.y.toInt, config.color)
   }
 
   class LabelWidgetConfig(data: Map[String, Any], textures: TextureGuiConfig) extends WidgetConfigBase(data, textures, "WidgetLabel") {
