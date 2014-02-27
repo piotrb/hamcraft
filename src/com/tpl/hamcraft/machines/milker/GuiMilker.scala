@@ -11,7 +11,7 @@ class GuiMilker(val te: TileMilker, player: EntityPlayer) extends BaseDynamicScr
   override def initGui() {
     super.initGui()
 
-    backgroundWidgets.add(config.getLabelWidget("title"))
+    widgets.add(config.getLabelWidget("title"))
 
 //    widgets.add(new WidgetProgressBar(new Rect(82, 18, 66, 15), Textures.whiteProgress(66), te.progress))
 //    widgets.add(new WidgetInventorySlot(100, 100, Textures.slotSelect))
@@ -19,6 +19,6 @@ class GuiMilker(val te: TileMilker, player: EntityPlayer) extends BaseDynamicScr
 //    widgets.add(new WidgetPowerCustom(new Rect(8, 18, 16, 58), Textures.powerFill, te.power))
 //    widgets.add(new WidgetFluidGauge(new Rect(26, 18, 16, 58), Textures.tankOverlay, te.inputTank))
 
-    backgroundWidgets.add(config.getPlayerInventoryWidget("player_inventory"))
+    widgets.add(config.getPlayerInventoryWidget("player_inventory"))
   }
 }

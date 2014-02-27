@@ -17,7 +17,7 @@ trait LabelWidgetLoading {
   class LabelWidgetConfig(data: Map[String, Any], textures: TextureGuiConfig) extends WidgetConfigBase(data, textures, "WidgetLabel") {
     val label = getString("label")
     val origin = getPoint("origin")
-    val color = getInt("color")
+    val color = getColor("color")
   }
 
 }

@@ -5,14 +5,14 @@ import net.minecraft.util.ResourceLocation
 import com.tpl.hamcraft.HamCraftMod
 import com.tpl.hamcraft.gui.{Textures, WidgetPowerCustom}
 import net.bdew.lib.gui.widgets.{WidgetProgressBar, WidgetFluidGauge, WidgetLabel}
-import net.bdew.lib.gui.{Rect, BaseScreen}
+import net.bdew.lib.gui.{Texture, Color, Rect, BaseScreen}
 import net.bdew.lib.Misc
 
 class GuiBreeder(val te: TileBreeder, player: EntityPlayer) extends BaseScreen(new ContainerBreeder(te, player), 176, 184) {
-  val texture: ResourceLocation = new ResourceLocation(HamCraftMod.modId + ":textures/gui/breeder.png")
+  val background = Texture.apply(HamCraftMod.modId, "textures/gui/breeder.png", Rect(0,0,256,256))
   override def initGui() {
     super.initGui()
-    widgets.add(new WidgetLabel(Misc.toLocal("tile.hamcraft.breeder.name"), 8, 6, 4210752))
+    widgets.add(new WidgetLabel(Misc.toLocal("tile.hamcraft.breeder.name"), 8, 6, Color(0.25F, 0.25F, 0.25F)))
 
     widgets.add(new WidgetProgressBar(new Rect(73, 29, 66, 15), Textures.whiteProgress(66), te.progress))
 

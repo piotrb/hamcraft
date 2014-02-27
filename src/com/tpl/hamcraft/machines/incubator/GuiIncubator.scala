@@ -4,12 +4,13 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.ResourceLocation
 import com.tpl.hamcraft.HamCraftMod
 import net.bdew.lib.gui.widgets.{WidgetProgressBar, WidgetFluidGauge, WidgetLabel}
-import net.bdew.lib.gui.{Rect, BaseScreen}
+import net.bdew.lib.gui.{Texture, Color, Rect, BaseScreen}
 import net.bdew.lib.Misc
 import com.tpl.hamcraft.gui.{Textures, WidgetPowerCustom}
 
 class GuiIncubator(val te: TileIncubator, player: EntityPlayer) extends BaseScreen(new ContainerIncubator(te, player), 176, 184) {
-  val texture: ResourceLocation = new ResourceLocation(HamCraftMod.modId + ":textures/gui/incubator.png")
+  val background = Texture.apply(HamCraftMod.modId, "textures/gui/incubator.png", Rect(0,0,256,256))
+
   override def initGui() {
     super.initGui()
 
@@ -18,6 +19,6 @@ class GuiIncubator(val te: TileIncubator, player: EntityPlayer) extends BaseScre
     widgets.add(new WidgetPowerCustom(new Rect(8, 18, 16, 58), Textures.powerFill, te.power))
     widgets.add(new WidgetFluidGauge(new Rect(26, 18, 16, 58), Textures.tankOverlay, te.inputTank))
 
-    widgets.add(new WidgetLabel(Misc.toLocal("tile.hamcraft.incubator.name"), 8, 6, 4210752))
+    widgets.add(new WidgetLabel(Misc.toLocal("tile.hamcraft.incubator.name"), 8, 6, Color(0.25F, 0.25F, 0.25F)))
   }
 }
