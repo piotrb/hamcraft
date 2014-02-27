@@ -74,11 +74,11 @@ sourceSets {
             include 'codechicken/**'
             include 'net/**'
 
-            srcDir 'deps/forestry/forestry/api'
-            include '**'
+            srcDir 'deps/forestry/'
+            include 'forestry/api/**'
 
-            srcDir 'deps/bc/common/buildcraft/api'
-            include '**'
+            srcDir 'deps/bc/common/'
+            include 'buildcraft/api/**'
 
             srcDir 'deps/ic2'
             include 'ic2/**'
@@ -86,8 +86,8 @@ sourceSets {
             srcDir 'deps/ue/src'
             include 'universalelectricity/**'
 
-            srcDir 'deps/cofh/cofh/api'
-            include '**'
+            srcDir 'deps/cofh'
+            include 'cofh/api/**'
         }
     }
 }
