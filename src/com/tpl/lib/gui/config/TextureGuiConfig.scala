@@ -7,7 +7,7 @@ class TextureGuiConfig(data: Map[String, Any], modId: String) extends MapDataAcc
     val info = data(key).asInstanceOf[Map[String, Any]]
     val rect = getRect(info, "rect")
     val file = getString(info, "file")
-    val scale = getInt(info, "scale")
+    val scale = getInt(info, "scale", Some(256.0))
 
     Texture.apply(modId + ":textures/gui/" + file, rect, scale)
   }

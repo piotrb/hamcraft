@@ -10,8 +10,8 @@ class WindowGuiConfig(data: Map[String, Any], textures: TextureGuiConfig, modId:
   def dynamicGuiTexture = {
     val info = data("dynamicBackground").asInstanceOf[Map[String, Any]]
     val textureRect = getRect(info, "rect")
-    val tileSize = getInt(info, "tileSize")
-    val resource = new ScaledResourceLocation(modId, "textures/gui/" + getString(info, "file"), getInt(info, "scale"))
+    val tileSize = getInt(info, "tileSize", Some(4.0))
+    val resource = new ScaledResourceLocation(modId, "textures/gui/" + getString(info, "file"), getInt(info, "scale", Some(256.0)))
     new GuiTextureLocation(resource, textureRect.origin, tileSize)
   }
 }

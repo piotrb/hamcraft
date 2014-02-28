@@ -2,6 +2,7 @@ package com.tpl.lib.gui.config
 
 import net.bdew.lib.gui.widgets.WidgetLabel
 import net.bdew.lib.Misc
+import net.bdew.lib.gui.Color
 
 trait LabelWidgetLoading {
 
@@ -15,9 +16,9 @@ trait LabelWidgetLoading {
   }
 
   class LabelWidgetConfig(data: Map[String, Any], textures: TextureGuiConfig) extends WidgetConfigBase(data, textures, "WidgetLabel") {
-    val label = getString("label")
-    val origin = getPoint("origin")
-    val color = getColor("color")
+    val label = getString(data, "label")
+    val origin = getPoint(data, "origin")
+    val color = getColor(data, "color", Some(new Color(0.25F, 0.25F, 0.25F)))
   }
 
 }

@@ -51,12 +51,32 @@
             "color" : [0.25,0.25,0.25,1.0],
             "label" : "tile.hamcraft.milker.name"
         },
+        "powerGauge": {
+            "type" : "WidgetPowerCustom",
+            "rect" : {
+                "x" : "9",
+                "y" : "20",
+                "w" : "",
+                "h" : ""
+            },
+            "fgOffset" : {
+                "x": 1,
+                "y": 1
+            },
+            "bgTexture": "",
+            "fgTexture": ""
+        },
         "player_inventory" : {
             "type" : "WidgetPlayerInventory",
             "origin": {
                 "x" : 9,
                 "y" : 76
             },
+            "fgOffset" : {
+                "x": 1,
+                "y": 1
+            },
+            "hotbarSpace": 4,
             "texture" : "inventorySlot",
             "invColor" : [1.0,1.0,1.0,1.0],
             "hotbarColor": [1.0,1.0,1.0,1.0]
