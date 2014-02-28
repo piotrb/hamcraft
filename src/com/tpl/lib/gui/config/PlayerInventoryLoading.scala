@@ -16,12 +16,15 @@ trait PlayerInventoryLoading {
 
   def getPlayerInventoryContainerInfo(name: String) = {
     val info = widgets(name).asInstanceOf[Map[String, Any]]
-    val config = new PlayerInventoryWidgetConfig(info, textures)
+    val config = new ServerInventoryWidgetConfig(info, null)
     new PlayerInventoryContainerInfo((config.origin.x + 1).toInt, (config.origin.y + 1).toInt, (config.origin.y + 18*3 + 4 + 1).toInt)
   }
 
-  class PlayerInventoryWidgetConfig(data: Map[String, Any], textures: TextureGuiConfig) extends WidgetConfigBase(data, textures, "WidgetPlayerInventory") {
+  class ServerInventoryWidgetConfig(data: Map[String, Any], textures: TextureGuiConfig) extends WidgetConfigBase(data, textures, "WidgetPlayerInventory") {
     val origin = getPoint("origin")
+  }
+
+  class PlayerInventoryWidgetConfig(data: Map[String, Any], textures: TextureGuiConfig) extends ServerInventoryWidgetConfig(data, textures) {
     val texture = getTexture("texture")
     val invColor = getColor("invColor")
     val hotbarColor = getColor("hotbarColor")
