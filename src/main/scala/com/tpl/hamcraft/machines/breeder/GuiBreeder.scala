@@ -1,9 +1,8 @@
 package com.tpl.hamcraft.machines.breeder
 
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.util.ResourceLocation
 import com.tpl.hamcraft.HamCraftMod
-import com.tpl.hamcraft.gui.{Textures, WidgetPowerCustom}
+import com.tpl.hamcraft.gui.Textures
 import net.bdew.lib.gui.widgets.{WidgetProgressBar, WidgetFluidGauge, WidgetLabel}
 import net.bdew.lib.gui.{Texture, Color, Rect, BaseScreen}
 import net.bdew.lib.Misc

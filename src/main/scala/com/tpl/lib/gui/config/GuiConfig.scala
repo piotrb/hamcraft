@@ -1,26 +1,18 @@
 package com.tpl.lib.gui.config
 
-import scala.util.parsing.json.JSON
-
 class GuiConfig(name: String, modId: String)
   extends LabelWidgetLoading
   with PlayerInventoryLoading
   with PowerGaugeLoading
+  with FluidGaugeLoading
+  with JsonLoading
 {
-  var data: Map[String, Any] = null
-
-  loadConfig(name)
+  loadConfig(name, modId)
 
   val widgets = data("widgets").asInstanceOf[Map[String, Any]]
 
-  val textures = new TextureGuiConfig(data("textures").asInstanceOf[Map[String, Any]], modId)
-  val window = new WindowGuiConfig(data("window").asInstanceOf[Map[String, Any]], textures, modId)
+  val textures = new TextureGuiConfig(modId)
 
-  private def loadConfig(name: String) {
-    val res = "/assets/%s/gui/%s.json".format(modId, name)
-    val stream = this.getClass.getResourceAsStream(res)
-    val json = scala.io.Source.fromInputStream(stream).getLines().mkString("\n")
-    data = JSON.parseFull(json).get.asInstanceOf[Map[String, Any]]
-  }
+  val window = new WindowGuiConfig(data("window").asInstanceOf[Map[String, Any]], textures, modId)
 
 }

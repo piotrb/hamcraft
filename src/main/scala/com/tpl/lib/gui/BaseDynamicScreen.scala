@@ -2,11 +2,10 @@ package com.tpl.lib.gui
 
 import net.bdew.lib.gui._
 import net.minecraft.inventory.Container
-import net.minecraft.util.ResourceLocation
 import com.tpl.lib.gui.config.GuiConfig
 import net.minecraft.client.gui.FontRenderer
-import net.minecraft.client.renderer.{RenderHelper, Tessellator}
-import org.lwjgl.opengl.{GL12, GL11}
+import net.minecraft.client.renderer.RenderHelper
+import org.lwjgl.opengl.GL12
 
 class BaseDynamicScreen(cont: Container, var config: GuiConfig) extends BaseScreen(cont, config.window.rect.w.toInt, config.window.rect.h.toInt) with SimpleDrawTarget {
 

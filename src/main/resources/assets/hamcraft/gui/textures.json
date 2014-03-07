@@ -1,0 +1,54 @@
+{
+  "textures" : {
+    "inventorySlot" : {
+      "file" : "widgets.png",
+      "scale": 256,
+      "rect" : {
+        "x": 66,
+        "y": 0,
+        "w": 18,
+        "h": 18
+      }
+    },
+    "guiFrame" : {
+      "file" : "widgets.png",
+      "scale": 256,
+      "rect" : {
+        "x": 84,
+        "y": 0,
+        "w": 12,
+        "h": 12
+      }
+    },
+    "powerGauge" : {
+      "file" : "widgets.png",
+      "scale": 256,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 58
+      }
+    },
+    "fluidGauge" : {
+      "file" : "widgets.png",
+      "scale": 256,
+      "rect": {
+        "x": 16,
+        "y": 0,
+        "w": 16,
+        "h": 58
+      }
+    },
+    "gaugeBackground" : {
+      "file" : "widgets.png",
+      "scale": 256,
+      "rect": {
+        "x": 96,
+        "y": 0,
+        "w": 18,
+        "h": 60
+      }
+    }
+  }
+}

@@ -1,12 +1,11 @@
 package com.tpl.hamcraft.machines.incubator
 
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.util.ResourceLocation
 import com.tpl.hamcraft.HamCraftMod
 import net.bdew.lib.gui.widgets.{WidgetProgressBar, WidgetFluidGauge, WidgetLabel}
 import net.bdew.lib.gui.{Texture, Color, Rect, BaseScreen}
 import net.bdew.lib.Misc
-import com.tpl.hamcraft.gui.{Textures, WidgetPowerCustom}
+import com.tpl.hamcraft.gui.Textures
 import net.bdew.lib.power.WidgetPowerGauge
 
 class GuiIncubator(val te: TileIncubator, player: EntityPlayer) extends BaseScreen(new ContainerIncubator(te, player), 176, 184) {

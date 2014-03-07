@@ -1,8 +1,6 @@
 package com.tpl.lib.gui.config
 
 import net.bdew.lib.gui.{Color, Point, Rect}
-import cpw.mods.fml.common.FMLLog
-import scala.util.parsing.json.JSON
 import com.tpl.lib.gui.ObjectDumping
 
 trait MapDataAccess extends ObjectDumping {

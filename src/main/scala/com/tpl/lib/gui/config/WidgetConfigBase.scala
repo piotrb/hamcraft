@@ -1,6 +1,6 @@
 package com.tpl.lib.gui.config
 
-import net.bdew.lib.gui.{Texture, Point, Color}
+import net.bdew.lib.gui.Texture
 
 class WidgetConfigBase(data: Map[String, Any], textures: TextureGuiConfig, expectedType: String) extends MapDataAccess {
   validateType

@@ -2,9 +2,8 @@ package com.tpl.hamcraft.machines.feedmixer
 
 import net.minecraft.entity.player.EntityPlayer
 import net.bdew.lib.gui.{Texture, Color, Rect, BaseScreen}
-import net.minecraft.util.ResourceLocation
 import com.tpl.hamcraft.HamCraftMod
-import com.tpl.hamcraft.gui.{WidgetPowerCustom, Textures}
+import com.tpl.hamcraft.gui.Textures
 import net.bdew.lib.gui.widgets.{WidgetProgressBar, WidgetFluidGauge, WidgetLabel}
 import net.bdew.lib.Misc
 import net.bdew.lib.power.WidgetPowerGauge

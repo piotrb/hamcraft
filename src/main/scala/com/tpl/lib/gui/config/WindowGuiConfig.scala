@@ -1,6 +1,6 @@
 package com.tpl.lib.gui.config
 
-import net.bdew.lib.gui.{ScaledResourceLocation, Texture}
+import net.bdew.lib.gui.ScaledResourceLocation
 import com.tpl.lib.gui.GuiTextureLocation
 
 class WindowGuiConfig(data: Map[String, Any], textures: TextureGuiConfig, modId: String) extends MapDataAccess {

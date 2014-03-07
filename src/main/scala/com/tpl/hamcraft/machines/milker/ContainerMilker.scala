@@ -1,7 +1,7 @@
 package com.tpl.hamcraft.machines.milker
 
 import net.minecraft.entity.player.EntityPlayer
-import com.tpl.hamcraft.machines.{TileConfigurable, ContainerBase}
+import com.tpl.hamcraft.machines.ContainerBase
 
 class ContainerMilker(val te: TileMilker, player: EntityPlayer) extends ContainerBase[TileMilker](te, player) {
   lazy val dataSource = te
