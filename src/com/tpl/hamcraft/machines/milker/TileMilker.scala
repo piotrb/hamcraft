@@ -8,7 +8,14 @@ import com.tpl.hamcraft.machines.{TileConfigurable, TileFluidInput, TileIngredie
 import net.minecraft.item.ItemStack
 import com.tpl.lib.gui.config.GuiConfig
 
-class TileMilker extends TileItemProcessor with TileConfigurable with TileFluidInput with TilePowered with RotateableTile with TileIngredientSearch {
+class TileMilker
+  extends TileItemProcessor
+  with TileConfigurable
+  with TileFluidInput
+//  with TilePowered
+  with RotateableTile
+  with TileIngredientSearch
+{
   lazy val cfg = Machines.milker
   lazy val config = new GuiMilkerConfig
 

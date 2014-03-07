@@ -5,6 +5,7 @@ import scala.util.parsing.json.JSON
 class GuiConfig(name: String, modId: String)
   extends LabelWidgetLoading
   with PlayerInventoryLoading
+  with PowerGaugeLoading
 {
   var data: Map[String, Any] = null
 

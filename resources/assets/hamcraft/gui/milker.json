@@ -19,6 +19,26 @@
                 "w": 12,
                 "h": 12
             }
+        },
+        "powerGauge" : {
+            "file" : "widgets.png",
+            "scale": 256,
+            "rect": {
+                "x": 0,
+                "y": 0,
+                "w": 16,
+                "h": 58
+            }
+        },
+        "gaugeBackground" : {
+            "file" : "widgets.png",
+            "scale": 256,
+            "rect": {
+                "x": 96,
+                "y": 0,
+                "w": 18,
+                "h": 60
+            }
         }
     },
     "window" : {
@@ -52,19 +72,21 @@
             "label" : "tile.hamcraft.milker.name"
         },
         "powerGauge": {
-            "type" : "WidgetPowerCustom",
+            "type" : "WidgetPowerGaugeDynamic",
             "rect" : {
-                "x" : "9",
-                "y" : "20",
-                "w" : "",
-                "h" : ""
+                "x" : 9,
+                "y" : 20,
+                "w" : 18,
+                "h" : 60
             },
             "fgOffset" : {
                 "x": 1,
-                "y": 1
+                "y": 1,
+                "w": -2,
+                "h": -2
             },
-            "bgTexture": "",
-            "fgTexture": ""
+            "bgTexture": "gaugeBackground",
+            "fgTexture": "powerGauge"
         },
         "player_inventory" : {
             "type" : "WidgetPlayerInventory",
