@@ -2,9 +2,9 @@
   "modinfoversion": 2,
   "modlist": [{
     "modid": "mobfarm",
-    "name": "Mob Farm",
-    "description": "Mob Farm",
-    "version": "${HAMCRAFT_VERSION}",
+    "name": "H-A-M Craft",
+    "description": "Humane Animal Management",
+    "version": "${version}",
     "mcversion": "${mcversion}",
     "url": "",
     "updateUrl": "",

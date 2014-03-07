@@ -11,7 +11,7 @@ import java.io.File
 import com.tpl.hamcraft.config._
 import com.tpl.hamcraft.compat.PowerProxy
 
-@Mod(modid = "HamCraft", name = "H-A-M Craft", version = "HAMCRAFT_VERSION", modLanguage = "scala", dependencies = "required-after:ThermalExpansion@(3.0,);required-after:bdlib@(1.0,);required-after:Forestry")
+@Mod(modid = "HamCraft", name = "H-A-M Craft", version = "MOD_VERSION", modLanguage = "scala", dependencies = "required-after:ThermalExpansion@(3.0,);required-after:bdlib@(1.0,);required-after:Forestry")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 object HamCraftMod {
   var log: Logger = null
