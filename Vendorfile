@@ -1,0 +1,32 @@
+#class ::Vendorer
+#
+#  alias download_repository_without_hg download_repository
+#
+#  def download_repository(url, to, options)
+#    if options[:scm] == :hg
+#      download_repository_with_hg(url, to, options)
+#    else
+#      download_repository_without_hg(url, to, options)
+#    end
+#  end
+#
+#  def download_repository_with_hg(url, to, options)
+#    run "hg clone '#{url}' #{to}"
+#    if commit = (options[:ref] || options[:tag] || options[:branch])
+#      run "cd #{to} && hg update -C '#{commit}'"
+#    end
+#    run "rm -rf #{to}/.hg"
+#  end
+#end
+
+from 'https://github.com/KingLemming/CoFHLib.git', ref: '24600c4cfda893a16316c0631972170413f3a1e3' do
+  folder 'src/api/cofh/api', 'cofh/api'
+end
+
+from 'https://github.com/BuildCraft/BuildCraft.git', tag: '4.2.2' do
+  folder 'src/api/buildcraft/api', 'common/buildcraft/api'
+end
+
+#from 'https://bitbucket.org/ChickenBones/notenoughitems', rev: '3d7c952ca8f5c669d719e553cf873ebf57da605a', scm: :hg do
+#  folder 'src/api/codechicken/nei/api', 'codechicken/nei/api'
+#end

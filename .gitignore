@@ -22,3 +22,6 @@ out
 *.iml
 *.ipr
 *.iws
+
+#vendorer
+Gemfile.lock
