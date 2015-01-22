@@ -1,34 +1,48 @@
 buildscript {
+    configurations.all {
+        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+    }
     repositories {
         mavenCentral()
+        mavenLocal()
         maven {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
         }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.0-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
     }
 }
 
-apply plugin: "forge"
 apply plugin: "scala"
+apply plugin: "forge"
 
-ext.configFile = file "build.properties"
+version = "0.0.1"
+ext.bdlibver = "1.6.0.36"
+ext.versuffix = "mc1710"
+ext.minecraft_version = "1.7.10"
+ext.forge_version = "10.13.2.1231"
+ext.apiVer = version
 
-configFile.withReader {
-    def prop = new Properties()
-    prop.load(it)
-    project.ext.config = new ConfigSlurper().parse prop
+if (project.hasProperty('buildnum')) {
+    project.version = project.version + '.' + project.buildnum
+} else {
+    project.version = project.version + '-DEV'
 }
 
-version = "${config.minecraft_version}-${config.version}"
 group= "com.t-p-l"
 archivesBaseName = "hamcraft"
 
 minecraft {
-    version = "${config.minecraft_version}-${config.forge_version}"
+    version = "${project.minecraft_version}-${project.forge_version}"
     replace("MOD_VERSION", project.version)
+    //replace("version", project.version)
+    //replace("mcversion", project.minecraft.version)
 }
 
 repositories {
@@ -37,19 +51,52 @@ repositories {
         name = "bdew"
         url = "http://jenkins.bdew.net/maven"
     }
+    maven {
+        name = "chickenbones"
+        url = "http://chickenbones.net/maven"
+    }
+    maven {
+        name = "ic2"
+        url = "http://maven.ic2.player.to/"
+    }
+    maven {
+        name "waila"
+        url "http://mobiusstrip.eu/maven"
+    }
 }
 
 dependencies {
-    compile "net.bdew:bdlib:" + config.bdlibver
+    compile "codechicken:CodeChickenLib:1.7.10-1.1.1.110:dev"
+    compile "codechicken:CodeChickenCore:1.7.10-1.0.4.29:dev"
+    compile "net.bdew:bdlib:" + bdlibver
+    compile "com.mod-buildcraft:buildcraft:6.2.6:dev"
+    compile "net.bdew.thirdparty:CoFHLib:R1.0.1:api"
+    compile "net.sengir.forestry:forestry_1.7.10:3.3.0.6:api"
+}
+
+import org.apache.tools.ant.filters.ReplaceTokens
+
+sourceSets {
+    main {
+        scala {
+            srcDir 'src'
+        }
+        resources {
+            srcDir 'resources'
+        }
+        output.resourcesDir = output.classesDir // Hack for IDEA
+    }
 }
 
 processResources {
 
     exclude '**/*.pxm'
 
+    inputs.property "tokens", minecraft.replacements
+
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        filter(ReplaceTokens, tokens: minecraft.replacements)
     }
 
     from(sourceSets.main.resources.srcDirs) {
