@@ -1,7 +1,0 @@
-from 'https://github.com/KingLemming/CoFHLib.git', ref: '24600c4cfda893a16316c0631972170413f3a1e3' do
-  folder 'src/api/cofh/api', 'cofh/api'
-end
-
-from 'https://github.com/BuildCraft/BuildCraft.git', tag: '4.2.2' do
-  folder 'src/api/buildcraft/api', 'common/buildcraft/api'
-end
