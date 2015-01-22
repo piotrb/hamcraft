@@ -8,7 +8,7 @@
     "mcversion": "${mcversion}",
     "url": "",
     "updateUrl": "",
-    "authors": [ "piotrb" ],
+    "authorList": [ "piotrb" ],
     "credits": "Code & design by piotrb",
     "requiredMods": [ "Forge", "ThermalExpansion", "BDLib" ],
     "dependencies": [ "ThermalExpansion", "BDLib" ],
