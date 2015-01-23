@@ -8,11 +8,11 @@ import net.minecraft.inventory.IInventory
 abstract class ContainerBase[T <: IInventory](private val te: T, player: EntityPlayer) extends BaseContainer(te) with ContainerDataSlots {
 
   // bind player inventory from config
-  //  if(te.isInstanceOf[TileConfigurable]) {
-  //    val configTE = te.asInstanceOf[TileConfigurable]
-  //    val info = configTE.config.getPlayerInventoryContainerInfo("player_inventory")
-  //    bindPlayerInventory(player.inventory, info.x, info.y, info.hotbarY)
-  //  }
+  if (te.isInstanceOf[TileConfigurable]) {
+    val configTE = te.asInstanceOf[TileConfigurable]
+    val info = configTE.config.getPlayerInventoryContainerInfo("player_inventory")
+    bindPlayerInventory(player.inventory, info.x, info.y, info.hotbarY)
+  }
 
   def addSlotSet(startingSlot: Int, rows: Int, cols: Int, startX: Int, startY: Int) {
     var inventorySlot = startingSlot

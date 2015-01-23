@@ -44,7 +44,7 @@ object HamCraftMod {
   @EventHandler
   def init(event: FMLInitializationEvent) {
     NetworkRegistry.INSTANCE.registerGuiHandler(this, Config.guiHandler)
-    //    Util.registerOreDictionary()
+    Util.registerOreDictionary()
     //    Upgrades.init()
     TuningLoader.loadDelayed()
   }
