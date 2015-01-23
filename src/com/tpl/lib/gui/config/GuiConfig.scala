@@ -4,8 +4,7 @@ class GuiConfig(name: String, modId: String)
   extends LabelWidgetLoading
   with PlayerInventoryLoading
   with PowerGaugeLoading
-//  with FluidGaugeLoading
-//  with ConfigAccess
+  with FluidGaugeLoading
 {
   var config = ConfigFile.loadConfig(name, modId)
 
