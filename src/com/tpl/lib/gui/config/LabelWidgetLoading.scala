@@ -1,21 +1,23 @@
 package com.tpl.lib.gui.config
 
+import com.typesafe.config.Config
 import net.bdew.lib.gui.widgets.WidgetLabel
 import net.bdew.lib.Misc
 import net.bdew.lib.gui.Color
 
-trait LabelWidgetLoading {
+trait LabelWidgetLoading extends MapDataAccess {
 
-  val widgets: Map[String, Any]
+  val widgets: Config
   val textures: TextureGuiConfig
 
   def getLabelWidget(name: String) = {
-    val info = widgets(name).asInstanceOf[Map[String, Any]]
-    val config = new LabelWidgetConfig(info, textures)
-    new WidgetLabel(Misc.toLocal(config.label), config.origin.x.toInt, config.origin.y.toInt, config.color)
+    getOptionLeaf(widgets, name, None, (info: Config) => {
+      val config = new LabelWidgetConfig(info, textures)
+      new WidgetLabel(Misc.toLocal(config.label), config.origin.x.toInt, config.origin.y.toInt, config.color)
+    })
   }
 
-  class LabelWidgetConfig(data: Map[String, Any], textures: TextureGuiConfig) extends WidgetConfigBase(data, textures, "WidgetLabel") {
+  class LabelWidgetConfig(data: Config, textures: TextureGuiConfig) extends WidgetConfigBase(data, textures, "WidgetLabel") {
     val label = getString(data, "label")
     val origin = getPoint(data, "origin")
     val color = getColor(data, "color", Some(new Color(0.25F, 0.25F, 0.25F)))

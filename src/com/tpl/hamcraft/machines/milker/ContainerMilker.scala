@@ -1,24 +1,24 @@
 package com.tpl.hamcraft.machines.milker
 
+import com.tpl.hamcraft.machines.{ContainerBase, TileConfigurable}
+import net.bdew.lib.gui.SlotValidating
 import net.minecraft.entity.player.EntityPlayer
-import com.tpl.hamcraft.machines.ContainerBase
 
 class ContainerMilker(val te: TileMilker, player: EntityPlayer) extends ContainerBase[TileMilker](te, player) {
   lazy val dataSource = te
 
-//  if(te.isInstanceOf[TileConfigurable]) {
-//    val configTE = te.asInstanceOf[TileConfigurable]
-  val configTE = te
+  if (te.isInstanceOf[TileConfigurable]) {
+    val configTE = te.asInstanceOf[TileConfigurable]
     val info = configTE.config.getPlayerInventoryContainerInfo("player_inventory")
     bindPlayerInventory(player.inventory, info.x, info.y, info.hotbarY)
-//  }
+  }
 
-  // input
-//  addSlotSet(startingSlot = te.inputSlot, rows = 1, cols = 1, startX = 62, startY = 18)
+  //  input
+  addSlotSet(startingSlot = te.inputSlot, rows = 1, cols = 1, startX = 62, startY = 18)
 
   // output
-//  addSlotSet(startingSlot = te.outputSlots.head, rows = 1, cols = 1, startX = 152, startY = 18)
+  addSlotSet(startingSlot = te.outputSlots.head, rows = 1, cols = 1, startX = 152, startY = 18)
 
-//  addSlotToContainer(new SlotValidating(te, te.fluidInputContainerInSlot, 53, 50))
-//  addSlotToContainer(new SlotValidating(te, te.fluidInputContainerOutSlot, 74, 50))
+  addSlotToContainer(new SlotValidating(te, te.fluidInputContainerInSlot, 53, 50))
+  addSlotToContainer(new SlotValidating(te, te.fluidInputContainerOutSlot, 74, 50))
 }

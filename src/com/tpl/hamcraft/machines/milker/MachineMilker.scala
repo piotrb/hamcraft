@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.inventory.Container
 
-class MachineMilker extends Machine("Milker", new BlockMilker(_)) with GuiProvider with ProcessorMachine {
+object MachineMilker extends Machine("Milker", BlockMilker) with GuiProvider with ProcessorMachine {
   def guiId = 4
   type TEClass = TileMilker
 

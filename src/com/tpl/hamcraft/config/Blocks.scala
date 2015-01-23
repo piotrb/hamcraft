@@ -1,11 +1,9 @@
 package com.tpl.hamcraft.config
 
-import net.bdew.lib.config.BlockManager
 import com.tpl.hamcraft.HamCraftMod
-import com.tpl.hamcraft.fluids.babyfood.BlockBabyFood
+import com.tpl.hamcraft.misc.HamcraftCreativeTabs
+import net.bdew.lib.config.BlockManager
 
-object Blocks extends BlockManager(Config.IDs) {
-  val babyfood = regBlockCls(classOf[BlockBabyFood], "BabyFood")
-
+object Blocks extends BlockManager(HamcraftCreativeTabs.main) {
   HamCraftMod.logInfo("Blocks loaded")
 }

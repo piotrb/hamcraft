@@ -2,6 +2,7 @@ tile.hamcraft.breeder.name=Breeder
 tile.hamcraft.babyfood.name=Baby Formula
 tile.hamcraft.feedmixer.name=Feed Mixer
 tile.hamcraft.incubator.name=Incubator
+tile.hamcraft.milker.name=Milker
 
 fluid.hamcraft.babyfood=Baby Formula
 
@@ -28,3 +29,5 @@ hamcraft.label.health=Health: %s / %s
 hamcraft.label.child=Child
 
 bdlib.label.empty=Empty
+
+itemGroup.tpl.hamcraft=H-A-M Craft

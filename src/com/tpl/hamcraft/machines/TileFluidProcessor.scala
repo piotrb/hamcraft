@@ -1,19 +1,19 @@
 package com.tpl.hamcraft.machines
 
-import net.bdew.lib.power.TileBaseProcessor
-import net.bdew.lib.data.{DataSlotTank, DataSlotTankRestricted}
-import net.bdew.lib.data.base.UpdateKind
-import net.minecraft.item.ItemStack
-import net.minecraftforge.common.ForgeDirection
-import net.minecraftforge.fluids.{FluidRegistry, FluidStack, Fluid}
-import net.bdew.lib.tile.ExposeTank
 import cpw.mods.fml.common.FMLLog
+import net.bdew.lib.data.base.UpdateKind
+import net.bdew.lib.data.{DataSlotTank, DataSlotTankRestricted}
+import net.bdew.lib.power.TileBaseProcessor
+import net.bdew.lib.tile.ExposeTank
+import net.minecraft.item.ItemStack
+import net.minecraftforge.common.util.ForgeDirection
+import net.minecraftforge.fluids.{Fluid, FluidRegistry, FluidStack}
 
-abstract class TileFluidProcessor extends TileBaseProcessor with ExposeTank
-{
+abstract class TileFluidProcessor extends TileBaseProcessor with ExposeTank {
+  lazy val output: DataSlotTankRestricted = DataSlotTankRestricted("output", this, outputTankSize, outputTankFluidId).setUpdate(UpdateKind.SAVE)
   val outputTankSize: Int = 1000
   val outputTankFluid: String
-  lazy val output: DataSlotTankRestricted = DataSlotTankRestricted("output", this, outputTankSize, outputTankFluidId).setUpdate(UpdateKind.SAVE)
+  val outputTank: DataSlotTank
 
   def outputTankFluidId: Int = {
     val fluid = FluidRegistry.getFluid(outputTankFluid)
@@ -23,8 +23,6 @@ abstract class TileFluidProcessor extends TileBaseProcessor with ExposeTank
     }
     fluid.getID
   }
-
-  val outputTank: DataSlotTank
 
   def isWorking = output.getFluidAmount > 0
 
@@ -37,6 +35,8 @@ abstract class TileFluidProcessor extends TileBaseProcessor with ExposeTank
   override def canExtractItem(slot: Int, item: ItemStack, side: Int) = false
 
   override def canDrain(from: ForgeDirection, fluid: Fluid): Boolean = true
+
   override def drain(from: ForgeDirection, resource: FluidStack, doDrain: Boolean): FluidStack = outputTank.drain(1000, doDrain)
+
   override def drain(from: ForgeDirection, maxDrain: Int, doDrain: Boolean): FluidStack = outputTank.drain(maxDrain, doDrain)
 }

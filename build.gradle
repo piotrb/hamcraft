@@ -66,12 +66,15 @@ repositories {
 }
 
 dependencies {
+    compile "codechicken:NotEnoughItems:1.7.10-1.0.3.74:dev"
     compile "codechicken:CodeChickenLib:1.7.10-1.1.1.110:dev"
     compile "codechicken:CodeChickenCore:1.7.10-1.0.4.29:dev"
+    compile "mcp.mobius.waila:Waila:1.5.6a_1.7.10"
     compile "net.bdew:bdlib:" + bdlibver
     compile "com.mod-buildcraft:buildcraft:6.2.6:dev"
     compile "net.bdew.thirdparty:CoFHLib:R1.0.1:api"
     compile "net.sengir.forestry:forestry_1.7.10:3.3.0.6:api"
+    compile "com.typesafe:config:1.2.1"
 }
 
 import org.apache.tools.ant.filters.ReplaceTokens

@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.inventory.Container
 
-class MachineFeedMixer extends Machine("FeedMixer", new BlockFeedMixer(_)) with GuiProvider with ProcessorMachine {
+object MachineFeedMixer extends Machine("FeedMixer", BlockFeedMixer) with GuiProvider with ProcessorMachine {
   def guiId = 2
   type TEClass = TileFeedMixer
 

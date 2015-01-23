@@ -4,15 +4,14 @@ class GuiConfig(name: String, modId: String)
   extends LabelWidgetLoading
   with PlayerInventoryLoading
   with PowerGaugeLoading
-  with FluidGaugeLoading
-  with JsonLoading
+//  with FluidGaugeLoading
+//  with ConfigAccess
 {
-  loadConfig(name, modId)
+  var config = ConfigFile.loadConfig(name, modId)
 
-  val widgets = data("widgets").asInstanceOf[Map[String, Any]]
+  val widgets = config.getConfig("widgets")
 
   val textures = new TextureGuiConfig(modId)
 
-  val window = new WindowGuiConfig(data("window").asInstanceOf[Map[String, Any]], textures, modId)
-
+  val window = new WindowGuiConfig(config.getConfig("window"), textures, modId)
 }
